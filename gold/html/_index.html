@@ -1,0 +1,181 @@
+﻿<div class="container">
+<div>
+<p>Правила игры.</p>
+<p>
+Цель игры - собрать все золото, при этом правым кликом (или долгим тапом на смартфоне) очищая не-белые-цвета-территории.
+</p>
+<p>
+1. Золото майнится, только если оно будет окружено белым цветом со всех сторон, кроме той, с которой подошли к нему.
+</p>
+<p>
+2. Герой это квадратик красного цвета. Кликайте рядом с ним. 
+</p>
+<p>
+3. Не-белая-цвет-территория очищается правой кнопкой мыши. Если не касается золота. (На смартфоне используйте долгий тап)
+</p>
+<p>
+4. Квадратики передвигаются/отрываются левой кнопкой мыши/правой кнопкой мыши. Если кликнуть рядом с героем. Но не всегда, 
+а в зависимости от разных условий. Если рядом белые поля, например.  Это часть головоломки игры - исследование что и в каких условиях происходит. Иногда через несколько полей, но прямо или по диагонали.
+</p>
+<p>
+5. Золото собирается правой кнопкой мыши.
+</p>
+<p>
+6. Передвигайтесь цепляясь к стенам, полу и потолку.
+</p>
+<p>
+7. Можно нажимать клавиши. n - новая игра, z - отмена хода  
+</p>
+
+</div>
+<div class="d-flex justify-content-center for_canvas20"><canvas hidden id="canvas20"></canvas></div>
+<div class="d-flex justify-content-center">
+
+<canvas id="pixels" width="150" height="150" style="cursor:crosshair; border: 1px solid gold; z-index: 990"></canvas>
+
+</div>
+
+<center>
+
+<div class=" points_div1">
+<span id="moves_span_id" class="moves_span">MOVES: 0</span>
+</div>
+
+<div class=" points_div2">
+<span id="gold_span_id" class="gold_span">GOLD: 0</span>
+</div>
+
+</center>
+
+<div style="visibility: hidden; display: none;" >
+n,m,t,z,ctrl+v,tth
+</div>
+
+ 
+
+<div hidden>
+
+<center>
+
+<button hidden onclick="clean()">Restart</button>
+<!---
+<button onclick="robot_home()">Rocket, JUMP!</button>
+<button onclick=""><label id="robot_work_label" for="robot_work">Robot, FLY!</label></button>
+<input  hidden type="checkbox" id="robot_work" onchange="launch_robot()"><label hidden for="free_robot_mode"> Free robot mode </label>
+<input   type="checkbox" checked id="free_robot_mode" >
+
+-->
+
+<div id='container0'><div id='container1'><button id='next' hidden onclick='mod_salamander_button_next_state_set_clicked()'>next</button>
+<div id="scale_div" class="flex-item draggable"   >	
+			
+				<div hidden><span id="canvas_width_height">:: 264 x 264 :: </span><span id="selected_x_y">170, 31 ::</span></div>
+					<div style="visibility: hidden; display: none;" id="pixels_buttons">
+					
+					<input type="button" id="btn_lt" value=" LT ">
+					<input type="button" id="btn_rb" value=" RB ">
+					<input type="button" id="btn_esc" value=" X ">
+					
+					</div> 
+					
+				<div class="flex-container-row">
+				<canvas id="pixels" width="150" height="150" style="margin-bottom:20px;margin-right:20px;cursor:crosshair;border: 1px solid gold;z-index: 990"></canvas>
+				
+				
+				</div>
+				<div hidden>
+				<button onclick="newg()">New</button>
+				<button onclick="save()">Save</button>
+				<button>For paste saved use [ctrl+v]</button>
+				<button onclick="clean()">Restart</button>
+				
+				</div>
+				<div hidden id="gif_block_div_id">
+				<input type="button" id="btn_make_gif" value=" make gif " onclick="save_game_on_server()">
+				<div  id="canvases"></div>
+				</div>
+				<div id='item0' ><canvas  id="canvas0"></canvas></div>
+				<div hidden id="key_point_canvases"></div>
+				
+				<div hidden >
+				<!---
+				<img title='nuclear' alt='nuclear' id="btn_pixels_clean"  src='images/buttons/nuclear.png'>
+				--->		
+				<input type="button" id="btn_pixels_wiz" hidden value=" Search "> 
+				<input type="button" id="btn_pixels_clean_old"  hidden value=" Clean "> 
+				<input type="button" id="btn_pixels_save" hidden value=" Save "> 
+				<input type="button" id="btn_pixels_close" hidden value=" Close ">
+				</div>
+		
+		</div><div hidden id='moves' ></div></div>
+		<center>
+<div hidden>
+<div>
+
+<p><strong>Include colors:</strong></p>
+<textarea cols="80" rows="4" id="include_colors"></textarea>
+</div>
+<div>
+<p><strong>Exclude colors:</strong></p>
+<textarea cols="80" rows="4" id="exclude_colors"></textarea>
+</div>
+</div>
+</center>
+<canvas id="debug_canvas"></canvas>
+<div id='item7'><canvas id="canvas7" ></canvas>
+
+
+
+</div>
+	<div class="flex-container"  id="collected_div"></div>
+
+<div id='item3'><canvas id="canvas1" ></canvas></div>
+<div id='item5_buffer' hidden ><canvas id="buffer_canvas1"></canvas></div>
+</div>
+</center>
+</div>
+<div id='controls' style='display:none;'><div class='btn'><canvas id='help'></canvas></div></div>
+
+<div id='planes_controls'></div>
+<div id='modal_window_help_window'></div>
+
+
+
+<div id='controls' style='display:none;'>
+<div class='btn'><canvas id='max'></canvas></div>
+<div class='btn'><canvas id='min'></canvas></div>
+<div class='btn'><canvas id='save'></canvas></div>
+<div class='btn'><canvas id='more'></canvas></div>
+<div class='btn'><canvas id='less'></canvas></div>
+<div class='btn'><canvas id='left'></canvas></div>
+<div class='btn'><canvas id='start'></canvas></div>
+<div class='btn'><canvas id='up'></canvas></div>
+<div class='btn'><canvas id='down'></canvas></div>
+<div class='btn'><canvas id='right'></canvas></div>
+
+
+<div class='btn' hidden><canvas id='remove'></canvas></div>
+
+<!----
+<div class='btn'><canvas id='p1'></canvas></div>
+<div class='btn'><canvas id='p2'></canvas></div>
+<div class='btn'><canvas id='p3'></canvas></div>
+---->
+</div>
+
+<div style='display:none'>
+<input type="radio" class="qwe" name="mode" id="take" value="take"> Take 
+<input type="radio"  class="qwe"  name="mode" id="snake" value="snake" checked> Take Off  
+<input type="radio"  class="qwe"  name="mode" id="join" value="join" > Fill 
+<input type="radio"  class="qwe"  name="mode" id="split" value="split" > Return 
+</div>
+
+<div style='display:none'>Cell size: <select id="cell_size" hidden><option value="1" selected >1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="8" >8</option><option value="16" >16</option><option value="24">24</option></select>
+<input type="button" value="set" onclick="update()">
+<input type="checkbox" id='save_on' checked>
+<!--<input type="button" value="save" onclick="save()">-->
+
+</div>
+<div hidden id="ctrlz_canvas_div_id"><canvas id='ctrlz_canvas_id'></canvas></div>
+
+</div>

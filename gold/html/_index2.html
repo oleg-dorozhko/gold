@@ -1,0 +1,139 @@
+<input type="button" id="reload_engine" hidden value="Reload Engine" >
+<input type="button" id="change_rules" hidden  value="Change Rules" >
+<input type="button" id="start_from_start" hidden  value="Start Again (from start)" >
+<input type="button" id="save_waypoint" hidden  value="Save Waypoint" >
+<input type="button" id="start_from_selected_waypoint"  hidden value="Start Again (from selected waypoint)" >
+<input type="button" id="ab_ovo" hidden  value="Do PrintScreen" >
+<input type="button" id="ab_ovo" hidden  value="Start From PrintScreen" >
+<!----
+<input type="button" id="save_for_gif" value="Copy For GIF" >
+<input type="button" id="save_all_on_server_for_gif" value="Save All On Server For GIF" >
+----->
+<div id="flags" hidden ><span id="seed_sizes"></span>
+<!---
+<select id="allowed_seed_sizes"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option></select>
+<!---
+<input type="radio" name="flags" id="radio0" value="nothing" checked><span>nothing</span>
+
+<input type="radio" name="flags" id="radio4" value="copy"><span>copy</span>
+--->
+<!----
+<input type="radio" name="flags" id="rb_double" value="double"><span>double</span>
+
+---->
+<!---
+<input type="radio" name="flags" id="radio1" value="exchange"><span>swap</span>
+---->
+<!---
+<input type="radio" name="flags" id="radio3" value="remove"><span>remove</span>
+--->
+<!---
+<input type="radio" name="flags" id="radio52" value="jump"><span>imp jump</span>
+<input type="radio" name="flags" id="radio51" value="move"><span>move</span>
+<input type="radio" name="flags" id="radio55" value="swap"><span>swap</span>
+--->
+<!---
+<input type="radio" name="flags" id="radio53" value="clone"><span>clone</span>
+<input type="radio" name="flags" id="radio54" value="pack"><span>pack</span>
+<input type="radio" name="flags" id="rb_set" value="set"><span>god mode</span>
+<!--
+<input type="radio" name="flags" id="rb_paint" value="paint"><span>paint</span>
+-->
+
+<!---
+<input type="radio" name="flags" id="radio6" value="select"><span>select</span>
+---->
+<!---
+<input type="radio" name="flags" id="radio2" value="change"><span>change</span>
+<input type="radio" name="flags" id="radio5" value="copy allowed"><span>copy labirint allowed</span>
+<input type="radio" name="flags" id="radio7" value="copy allowed"><span>paste labirint allowed</span>
+<input type="checkbox" name="qflag1" id="qflag1"  value="all"><span>all</span>
+---->
+<div style="display:none">
+<div><input type="checkbox" name="can_unplace_checkbox" id="can_unplace_checkbox"  value="true"><span>If placed, can we to unplace? (check yes)</span></div>
+<div><input type="checkbox" name="can_place_checkbox" id="can_place_checkbox"  value="true"><span>If not placed, can we to place directly? (check yes)</span></div>
+<div><input type="checkbox" name="koloda_checkbox" id="koloda_checkbox" hidden  value="true"><span hidden >koloda</span></div>
+<div><input type="radio" name="radio_buttons1" id="any_from_deck_radio3"  value="any_from_deck_radio3"><span>any from deck</span>
+<input type="radio" name="radio_buttons1" id="only_bossed_from_deck_radio1"  value="only_bossed_from_deck_radio1" checked ><span>only bossed</span>
+<input type="radio" name="radio_buttons1" id="last_from_deck_radio2"  value="last_from_deck_radio2"><span>last from deck</span>
+<input type="radio" name="radio_buttons1" id="none_from_deck_radio4"  value="none_from_deck_radio4"><span>none from deck</span></div>
+<div id="001"><input type="checkbox" name="coins_checkbox" id="coins_checkbox"  ><span>Coins: </span>
+<input type="checkbox" name="move1_checkbox" id="move1_checkbox"  value="true"><span>move1</span>
+<input type="checkbox" name="move2_checkbox" id="move2_checkbox"  value="true"><span>move2</span>
+<input type="checkbox" name="moven_checkbox" id="moven_checkbox"  value="true"><span>moveN</span>
+<input type="checkbox" name="jump1_checkbox" id="jump1_checkbox"  value="true"><span>jump1</span>
+<input type="checkbox" name="jump2_checkbox" id="jump2_checkbox"  value="true"><span>jump2</span>
+<input type="checkbox" name="jumpn_checkbox" id="jumpn_checkbox"  value="true"><span>jumpN</span>
+<input type="checkbox" name="move1_checkbox" id="swap1_checkbox"  value="true"><span>swap1</span>
+<input type="checkbox" name="move2_checkbox" id="swap2_checkbox"  value="true"><span>swap2</span>
+<input type="checkbox" name="moven_checkbox" id="swapn_checkbox"  value="true"><span>swapN</span>
+<input type="checkbox" name="hourse_move_checkbox" id="hourse_move_checkbox"  value="true"><span>hourseMove</span>
+<input type="checkbox" name="hourse_jump_checkbox" id="hourse_jump_checkbox"  value="true"><span>hourseJump</span>
+<input type="checkbox" name="hourse_swap_checkbox" id="hourse_swap_checkbox"  value="true"><span>hourseSwap</span>
+<input type="checkbox" name="push_checkbox" id="push_checkbox"  value="true"><span>push</span>
+<input type="checkbox" name="pop_checkbox" id="pop_checkbox"  value="true"><span>pop</span>
+</div>
+</div>
+</div>
+<div hidden>
+<input type="checkbox" name="cb_checkbox" id="cb_checkbox"  value="true"><span>c -> b</span>
+<input type="checkbox" name="pp_checkbox" id="pp_checkbox"  value="true"><span>c(pl) -> b</span>
+<input type="checkbox" name="bc_checkbox" id="bc_checkbox"  value="true"><span>b <- c</span>
+<input type="checkbox" name="bc_checkbox" id="bc_checkbox"  value="true"><span>p(pl) <- c</span>
+<input type="checkbox" name="cp_checkbox" id="cp_checkbox"  value="true"><span>c <- p</span>
+<input type="checkbox" name="pc_checkbox" id="pc_checkbox"  value="true"><span>p -> c</span>
+<input type="checkbox" name="cc_checkbox" id="cc_checkbox"  value="true"><span>c -> c</span>
+<input type="checkbox" name="pp_checkbox" id="pp_checkbox"  value="true"><span>p -> p</span>
+<input type="checkbox" name="pp_checkbox" id="pp_checkbox"  value="true"><span>p(pl) -> p</span>
+</div>
+<div id="buttons"><!--- <input type="button" id="prev"> --->
+<!---
+<input type="button" id="next" value="next" ><input type="button" id="set" value="set" >
+
+<input type="button" id="fisy" value="find symmetry" onclick="findSymmetry()" >
+
+<select id="level"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option></select>
+
+<input type="button" id="start_game" value="Wizard OZ" onclick="randomize()" >
+
+--->
+<!---
+<input type="button" id="start_game" value="random atack" onclick="randomize(100)" >
+---->
+<!---
+<input type="button" id="inverse" value="Inverse" onclick="inverse()" >
+<input type="button" id="start_game" value="all down" onclick="all_down()" >
+<input type="button" id="start_game" value="error" onclick="error()" >
+--->
+
+</div>
+<div  style="display:none"><span id="first_pattern"></span><span id="second_pattern"></span></div>
+<div id="background" style="display:none"  ><canvas id="background_canvas"  hidden onclick="inverse()" ></canvas>
+<span id="controls" style="display:none" ></span>
+</div>
+
+<div style="display:flex; justify-content:space-around">
+<span><canvas id="left_canvas"></canvas></span>
+<span style="display:none"><canvas id="special_canvas"></canvas></span>
+<span style="display:none"><canvas id="center_canvas"></canvas></span>
+<span style="display:none"><canvas id="right_canvas"></canvas></span>
+<!---
+<span><canvas id="fourth_canvas" hidden ></canvas></span>
+--->
+</div>
+
+<div  style="display:none" id="first_kard"></div><div id="seeds" ></div>
+<div style="display:flex; justify-content:space-around">
+<div id="magik_line0"></div>
+</div>
+<div id="expected_magik_list"></div>
+<div id="labirintCode"></div>
+<div id="program_in_div">
+<!--
+<span id="code_row_el">Here will written our code rows</span>
+-->
+</div>
+<div id="saves_for_gif"></div>
+
+
+

@@ -1,0 +1,29 @@
+<!---
+
+<div id='planes0'><span>В каком срезе мы сейчас находимся?</span><input type="button" id='leftd' value="<<" ><input type="text" readonly id="level" value="1">
+<input type="button" id='rightd' value=">>" >
+</div>
+<div><span>Куда отправляем снятые плитки (правым кликом)?</span><input type="text" id="level_for_removed_LC" readonly value="2">
+</div>
+<div><span>Куда отправляем снятые плитки (левым кликом)?</span><input type="text" id="level_for_removed_RC" readonly value="2">
+</div>
+<div><input type="text" id="levels_for_d" value="1">
+<input type="button" value="Отрисовать указанные уровни" title='по умолчанию все' onclick="draw()">
+<input type="button" value="По умолчанию" onclick="abc(draw)">
+</div>
+
+--->
+
+<div id='planes0'><span>Where we are?</span><input type="button" id='leftd' value="<<" ><input type="text" readonly id="level" value="1">
+<input type="button" id='rightd' value=">>" >
+</div>
+
+<div><span>Where left click place?</span><input type="text" id="level_for_removed_RC" readonly value="2">
+</div>
+<div><span>Where right click place?</span><input type="text" id="level_for_removed_LC" readonly value="2">
+</div>
+
+<div><input type="text" id="levels_for_d" value="1">
+<input type="button" value="Draw defined" title='all by default' onclick="draw()">
+<input type="button" value="Define by default and draw" onclick="abc(draw)">
+</div>

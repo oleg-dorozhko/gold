@@ -1,0 +1,47 @@
+body
+{
+	background-color: #cccccc;
+}
+
+div
+{
+	margin: 5px;
+}
+
+div#buttons
+{
+	margin-bottom: 10px;
+}
+
+span#code_row_el
+{
+	font-size: 20px;	
+}
+
+span#second_pattern
+{
+	margin-left: 5%;
+}
+
+div#first_kard
+{
+	/* background-color: #fff; */
+	width: 50%;
+}
+
+input
+{
+	
+	margin-right: 5px;
+}
+
+select
+{
+	
+	margin-right: 5px;
+}
+
+#counter
+{
+	margin-top: 2000px;
+}

@@ -1,0 +1,1 @@
+java -jar dov_patterns_gifmaker.jar %1
