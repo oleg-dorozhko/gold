@@ -1,6 +1,6 @@
 function wizardry()
 {
-	//alert('OMG! I found a magik stone! \nOk. I\'ll put it in my pocket.\nJump on stone now!');
+	//alert('OMG! I found a magik stone! \nOk. I\'ll put it in my pocket.\nmove_to on stone now!');
 	addStone();
 }
 

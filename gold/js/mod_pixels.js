@@ -272,10 +272,10 @@ function redrawPixels_main(context, x,y) // --> old__redrawPixels_main(context, 
 		{
 			
 			var imageData = pixels_getColorArrayFromImageData(imgData0, x+i, y+j);
-			if(x+i<0) imageData='[255,255,255,255]';
-			else if(x+i>=imgData0.width) imageData='[255,255,255,255]';
-			else if(y+j<0) imageData='[255,255,255,255]';
-			else if(y+j>=imgData0.height) imageData='[255,255,255,255]';
+			if(x+i<0) imageData='getWhiteSpaceColor()';
+			else if(x+i>=imgData0.width) imageData='getWhiteSpaceColor()';
+			else if(y+j<0) imageData='getWhiteSpaceColor()';
+			else if(y+j>=imgData0.height) imageData='getWhiteSpaceColor()';
 			//var imageData = context.getImageData(x+i,y+j,1,1);
 			
 			else if(i==0 && j==0) imageData = [255,0,0,255];

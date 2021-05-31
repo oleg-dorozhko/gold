@@ -197,7 +197,7 @@ function __whenUserClickOnSplitClusterButton(x,y)
 	
 	
 	
-	//post_bubabu(global_table_of_clusters[global_cluster_number].points,[255,255,255,255]);
+	//post_bubabu(global_table_of_clusters[global_cluster_number].points,getWhiteSpaceColor());
 							
 						
 	

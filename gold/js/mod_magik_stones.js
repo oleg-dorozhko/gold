@@ -113,7 +113,7 @@ function create_new_stone()
 	}
 	
 	set_pixel("canvas0", arr2[0],arr2[1], arr4[2]);
-	set_pixel("canvas0", arr4[0],arr4[1], [255,255,255,255]);
+	set_pixel("canvas0", arr4[0],arr4[1], getWhiteSpaceColor());
 	moves_counter_incr();
 	f_send_to_server_changed_canvas( ()=> { refresh_map(); f_samson(); } )
 }

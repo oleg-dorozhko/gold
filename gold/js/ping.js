@@ -1,4 +1,4 @@
-function swamp_diagon_alleya(obj1, obj2)
+function move_to_diagon_alleya(obj1, obj2)
 {
 	var imgData1 = getImageDataFromObject(obj1);
 	var imgData2 = getImageDataFromObject(obj2);
@@ -47,7 +47,7 @@ function swamp_diagon_alleya(obj1, obj2)
 			arr.splice(arr.indexOf([n2,m2]),1);
 			var res = findAllBackgroundCellInArray(arr);
 			
-			if((res.length == 1) && (arr.length==2))	return "ok";  //return move_diagon_alleya(context, n,m, imgData1, n2, m2, imgData2, obj2);	
+			if((res.length == 1) && (arr.length==2))	return move_diagon_alleya(context, n,m, imgData1, n2, m2, imgData2, obj2);	
 			
 			return null;
 			
@@ -69,9 +69,7 @@ function swamp_diagon_alleya(obj1, obj2)
 			arr.splice(arr.indexOf([n2,m2]),1);
 			var res = findAllBackgroundCellInArray(arr);
 			
-			if((res.length == 1) && (arr.length==2))	
-				return "ok"; 	
-			//return move_diagon_alleya(context, n,m, imgData1, n2, m2, imgData2, obj2);	
+			if((res.length == 1) && (arr.length==2))	return move_diagon_alleya(context, n,m, imgData1, n2, m2, imgData2, obj2);	
 			
 			return null;
 						
@@ -92,9 +90,8 @@ function swamp_diagon_alleya(obj1, obj2)
 			arr.splice(arr.indexOf([n2,m2]),1);
 			var res = findAllBackgroundCellInArray(arr);
 			
-			if((res.length == 1) && (arr.length==2))
-//				return move_diagon_alleya(context, n,m, imgData1, n2, m2, imgData2, obj2);	
-				return "ok"; 
+			if((res.length == 1) && (arr.length==2))	return move_diagon_alleya(context, n,m, imgData1, n2, m2, imgData2, obj2);	
+			
 			return null;
 						
 		}
@@ -114,9 +111,7 @@ function swamp_diagon_alleya(obj1, obj2)
 			arr.splice(arr.indexOf([n2,m2]),1);
 			var res = findAllBackgroundCellInArray(arr);
 			
-			if((res.length == 1) && (arr.length==2))	
-					return "ok"; 
-				//return move_diagon_alleya(context, n,m, imgData1, n2, m2, imgData2, obj2);	
+			if((res.length == 1) && (arr.length==2))	return move_diagon_alleya(context, n,m, imgData1, n2, m2, imgData2, obj2);	
 			
 			return null;
 						
@@ -148,7 +143,7 @@ function swamp_diagon_alleya(obj1, obj2)
 }
 
 
-function swamp_magnito(obj1, obj2)
+function move_to_magnito(obj1, obj2)
 {
 	var imgData1 = getImageDataFromObject(obj1);
 	var imgData2 = getImageDataFromObject(obj2);
@@ -187,7 +182,7 @@ function swamp_magnito(obj1, obj2)
 			if( move_to_check_vertical_cell_background(n, obj1, m, obj2, m2 ))
 			{
 				
-				/****
+				
 				var canvas = document.getElementById(obj1.frm);
 				var context = canvas.getContext("2d");
 				
@@ -213,10 +208,7 @@ function swamp_magnito(obj1, obj2)
 				
 				
 				
-				*****/
 				
-				
-				return "ok";
 				
 				
 			}
@@ -232,7 +224,7 @@ function swamp_magnito(obj1, obj2)
 			
 			if( move_to_check_horizontal_cell_background(m, obj1, n, obj2, n2 ))
 			{
-				/****
+				
 				
 				var canvas = document.getElementById(obj1.frm);
 				var context = canvas.getContext("2d");
@@ -257,9 +249,7 @@ function swamp_magnito(obj1, obj2)
 				
 				return obj2;
 				
-				*****/
 				
-				return "ok";
 				
 				
 				
@@ -345,45 +335,58 @@ function swamp_magnito(obj1, obj2)
 }
 
 
-
-
-function check_swamp(obj1, obj2)
-{
-	var mg = swamp_magnito(obj1,obj2);
-	if( mg != null ) return false;
-	
-	var da = swamp_diagon_alleya(obj1,obj2);
-	if(da != null) return false;
-	
-	var mg2 = swamp_magnito(obj2,obj1);
-	if( mg2 != null ) return false;
-	
-	var da2 = swamp_diagon_alleya(obj2,obj1);
-	if(da2 != null) return false;
-	
-	var n = obj1.nm[2];
-	var m = obj1.nm[3];
-	
-	var n2 = obj2.nm[2];
-	var m2 = obj2.nm[3];
-	
-	if(((n+2==n2)||(n2+2==n)||(n2+1==n)||(n+1==n2))&&((m+2==m2)||(m2+2==m)||(m2+1==m)||(m+1==m2)))
-	{
-		
-		//if(n2 < n-2 || n2 > n+2) return false;
+function move_to_check_vertical_cell_background(n, obj1, m, obj2, m2 ) //when first is bgcolor
+			{
+				//jhgkj
 				
-		//if(m2 < m-2 || m2 > m+2) return false;
-		
-		var arrOkr = getOkrPlaceArray0(obj1.nm[2],obj1.nm[3]);
-		for(var i=0;i<arrOkr.length;i++)
-		{
-			if((arrOkr[i][0] == obj2.nm[2]) && (arrOkr[i][1] == obj2.nm[3])) return false;
-		}
-		
-		return true;
-	
-	}
-	
-	return false;
-	
-}
+				if(m > m2) m2++;
+				else if (m2 > m) m2--;
+				
+				var arr = [];
+				if(m > m2)
+				{
+					for(var mm = m2; mm<=m; mm++) arr.push([n,mm]);
+					
+				}
+				else if(m2 > m)
+				{
+					for(var mm = m; mm<=m2; mm++) arr.push([n,mm]);
+					
+				}
+				
+				var res = findAllBackgroundCellInArray(arr);
+				
+				if((res.length == 1) && (arr.length==2)) return true;
+				
+				return false;
+			}
+
+
+
+
+function move_to_check_horizontal_cell_background(m, obj1, n, obj2, n2 ) //when first is bgcolor
+			{
+				//jhgkj
+				
+				if(n > n2) n2++;
+				else if (n2 > n) n2--;
+				
+				var arr = [];
+				if(n > n2)
+				{
+					for(var nn = n2; nn<=n; nn++) arr.push([nn,m]);
+					
+				}
+				else if(n2 > n)
+				{
+					for(var nn = n; nn<=n2; nn++) arr.push([nn,m]);
+					
+				}
+				
+				var res = findAllBackgroundCellInArray(arr);
+				
+				if((res.length == 1) && (arr.length==2)) return true;
+				
+				return false;
+			}
+

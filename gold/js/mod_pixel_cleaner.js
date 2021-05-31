@@ -90,13 +90,13 @@ function clean_single_pixels(	callback	)
 							 						
 							var bgcolor = getColorArrayFromImageData(imgData_c, xs, ys);
 							// //glob_all_generated_stones[i].color
-							if( rt_compareColors([255,255,255,255],bgcolor,0)==true )
+							if( rt_compareColors(getWhiteSpaceColor(),bgcolor,0)==true )
 							{
 								
 							}
 							else
 							{
-								imgData=fillRectangleFast(imgData,xs,ys,1,1,[255,255,255,255]);
+								imgData=fillRectangleFast(imgData,xs,ys,1,1,getWhiteSpaceColor());
 								ctx_c.putImageData(imgData,0,0);
 							}
 							

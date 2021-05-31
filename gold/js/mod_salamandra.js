@@ -157,8 +157,8 @@ function mod_salamander_motion_animate(x1,y1)
 		//var x = xy[0];
 		//var y = xy[1];
 		mod_salamander_setXY(x1,y1);
-		mod_salamander_global_dummy_fast_thread_imgData=mod_salamander_fillRectangleFast(mod_salamander_global_dummy_fast_thread_imgData,x1,y1,1,1,[255,255,255,255]);
-		mod_salamander_putImageData2canvas0_PRO_(x1,y1,[255,255,255,255]);
+		mod_salamander_global_dummy_fast_thread_imgData=mod_salamander_fillRectangleFast(mod_salamander_global_dummy_fast_thread_imgData,x1,y1,1,1,getWhiteSpaceColor());
+		mod_salamander_putImageData2canvas0_PRO_(x1,y1,getWhiteSpaceColor());
 		// mod_salamander_putImageData2canvas0(mod_salamander_global_dummy_fast_thread_imgData);
 //	}
 	
@@ -255,7 +255,7 @@ function mod_salamander_motion_animate(x1,y1)
 							
 							// var border_points = mod_salamander_get_border_points_from_all_points(mod_salamander_global_dummy_fast_thread_imgData);//where neigh arround < 8
 							// //mod_salamander_post_bubabu(border_points,inv(mod_salamander_global_fill_color)); 	
-						// //	mod_salamander_post_bubabu(mod_salamander_global_dummy_fast_thread_border_cluster,mod_salamander_global_fill_color); //[255,255,255,255]);//
+						// //	mod_salamander_post_bubabu(mod_salamander_global_dummy_fast_thread_border_cluster,mod_salamander_global_fill_color); //getWhiteSpaceColor());//
 							// if(border_points.length>0)
 							// {
 								// mod_salamander_setXY(border_points[0][0],border_points[0][1]);
@@ -360,7 +360,7 @@ function mod_salamander_stop()
 	
 	// var x = mod_salamandra_x;
 		// var y = mod_salamandra_y;
-		// mod_salamander_global_dummy_fast_thread_imgData=mod_salamander_fillRectangleFast(mod_salamander_global_dummy_fast_thread_imgData,x,y,1,1,[255,255,255,255]);
+		// mod_salamander_global_dummy_fast_thread_imgData=mod_salamander_fillRectangleFast(mod_salamander_global_dummy_fast_thread_imgData,x,y,1,1,getWhiteSpaceColor());
 		
 	mod_salamander_global_dummy_fast_thread_imgData=null;
 	//mod_salamander_putImageData2canvas0();
@@ -832,7 +832,7 @@ function mod_salamander_is_neighbour_food( arr_i )
 
 function mod_salamander_white(color2)
 {
-	var color=[255,255,255,255];
+	var color=getWhiteSpaceColor();
 	if(
 					(color2[0] == color[0]) &&
 					(color2[1] == color[1]) &&

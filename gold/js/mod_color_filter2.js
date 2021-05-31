@@ -4,6 +4,7 @@ var PAUSE_INTERVAL=200;
 var MOTION_ANIMATING=9;
 var MOTION_ANIMATING_PAUSE_INTERVAL=1000;
 var global_right_mouse_initiated=false;
+var glob_takes_counter=0;
 
 function i_found_gold()
 {
@@ -12,7 +13,7 @@ function i_found_gold()
 
 function wizardry()
 {
-	//alert('OMG! I found a magik stone! \nOk. I\'ll put it in my pocket.\nJump on stone now!');
+	//alert('OMG! I found a magik stone! \nOk. I\'ll put it in my pocket.\nmove_to on stone now!');
 	//addStone();
 }
 function getRndColor()
@@ -137,7 +138,7 @@ function motion_animate(x,y)
 		
 		
 		
-			global_dummy_fast_thread_imgData=fillRectangleFast(global_dummy_fast_thread_imgData,x,y,1,1,[255,255,255,255]);//global_fill_color);
+			global_dummy_fast_thread_imgData=fillRectangleFast(global_dummy_fast_thread_imgData,x,y,1,1,getWhiteSpaceColor());//global_fill_color);
 			var canvas7 = document.getElementById("canvas0");
 			var context7 = canvas7.getContext("2d");
 					
@@ -168,7 +169,7 @@ function motion_animate(x,y)
 		// {
 			// var x2=arr[j][0];
 			// var y2=arr[j][1];
-			// global_dummy_fast_thread_imgData=fillRectangleFast(global_dummy_fast_thread_imgData,x2,y2,1,1,[255,255,255,255]);//global_fill_color);
+			// global_dummy_fast_thread_imgData=fillRectangleFast(global_dummy_fast_thread_imgData,x2,y2,1,1,getWhiteSpaceColor());//global_fill_color);
 			// var canvas7 = document.getElementById("canvas0");
 			// var context7 = canvas7.getContext("2d");
 					
@@ -425,7 +426,7 @@ function setEventListenersOnTri_Btns()
 					// var bgcolor = getColorArrayFromImageData(imgData7, glob_x_left_top, glob_y_left_top);
 						// console.log(bgcolor);
 						
-					// imgData7=fillRectangleFast(imgData7,glob_x_left_top,glob_y_left_top,1,1,[255,255,255,255]);
+					// imgData7=fillRectangleFast(imgData7,glob_x_left_top,glob_y_left_top,1,1,getWhiteSpaceColor());
 					// context7.putImageData(imgData7,0,0);
 						
 						
@@ -548,7 +549,7 @@ function get_center_point()
 	glob_x_left_top=x;
 	glob_y_left_top=y;
 	if( is_white_xy(x,y)) {
-		try_to_fly();
+		avtomatik_move_to();
 		return [glob_x_left_top,glob_y_left_top];
 	}
 	
@@ -604,6 +605,7 @@ function set_gold()
 				xr = getRandomInt(1,canvas.width-1);
 				yr = getRandomInt(1,canvas.height-1);
 				if(is_gold_xy(xr,yr)) continue;
+				if(is_gold_near(xr,yr)) continue;
 				if((xr==glob_x_left_top)&&(yr==glob_y_left_top)) continue;
 				break;
 			}
@@ -653,7 +655,7 @@ function pattern2canvas( session_id)
 					glob_x_left_top=Number(obj.x);
 					glob_y_left_top=Number(obj.y);
 					
-					//try_to_fly();
+					//avtomatik_move_to();
 					
 					// var canvas0 = document.getElementById("canvas0");
 					// var context0 = canvas0.getContext("2d");
@@ -765,7 +767,7 @@ function pattern2canvas( session_id)
 		
 		
 		);
-		//set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,[255,255,255,255]);
+		//set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,getWhiteSpaceColor());
 	}
 	else{
 		
@@ -854,7 +856,7 @@ function white_square()
 	var canvas = document.getElementById('canvas0');
 	var context = canvas.getContext("2d");
 	var imageData = context.getImageData(0,0,canvas.width,canvas.height);
-	context.putImageData(fillRectangleFast(imageData, 0, canvas.height-2, 2, 2, [255,255,255,255] ),0,0);
+	context.putImageData(fillRectangleFast(imageData, 0, canvas.height-2, 2, 2, getWhiteSpaceColor() ),0,0);
 }
 
 
@@ -1187,7 +1189,7 @@ function ident2(im, action, callback)
 	 
 }
 
-function try_to_fly_wrapper(x,y){
+function avtomatik_move_to_wrapper(x,y){
 	
 	
 											
@@ -1196,7 +1198,7 @@ function try_to_fly_wrapper(x,y){
 													
 	// glob_x_left_top=x;
 	// glob_y_left_top=y;							
-						// try_to_fly();
+						// avtomatik_move_to();
 					// mod_salamander_pro_processing_avto_click()
 												// }
 					// }(x,y), 100);
@@ -1612,7 +1614,7 @@ while (element.firstChild) {
 			if(tr_black(color2)) return;
 			if(is_white(color2)) return;
 			//if(is_gold(color2)) {
-				// set_pixel("canvas0",f_glob_x_left_top, f_glob_y_left_top,[255,255,255,255]);
+				// set_pixel("canvas0",f_glob_x_left_top, f_glob_y_left_top,getWhiteSpaceColor());
 				// send_to_server_changed_canvas(()=>{
 							
 							// samson(); //
@@ -1649,7 +1651,7 @@ while (element.firstChild) {
 									
 								//	if(is_gold(color2)==false) 
 									{
-										// set_pixel("canvas0",f_glob_x_left_top, f_glob_y_left_top,[255,255,255,255]);
+										// set_pixel("canvas0",f_glob_x_left_top, f_glob_y_left_top,getWhiteSpaceColor());
 				// send_to_server_changed_canvas(()=>{
 							
 							// samson(); //
@@ -1666,7 +1668,7 @@ while (element.firstChild) {
 							
 							
 						//set_pixel("canvas0",glob_x_left_top+n+diff[0],glob_y_left_top+m+diff[1],color2);
-						set_pixel("canvas0",glob_x_left_top+n,glob_y_left_top+m,[255,255,255,255]); 
+						set_pixel("canvas0",glob_x_left_top+n,glob_y_left_top+m,getWhiteSpaceColor()); 
 						set_pixel("canvas0",diff[0],diff[1],color2);
 						send_to_server_changed_canvas(()=>{
 							
@@ -1724,7 +1726,7 @@ while (element.firstChild) {
 								{
 
 						{
-										// set_pixel("canvas0",f_glob_x_left_top, f_glob_y_left_top,[255,255,255,255]);
+										// set_pixel("canvas0",f_glob_x_left_top, f_glob_y_left_top,getWhiteSpaceColor());
 				// send_to_server_changed_canvas(()=>{
 							
 							// samson(); //
@@ -1738,7 +1740,7 @@ while (element.firstChild) {
 				var diff = get_diff_direct(glob_x_left_top,glob_y_left_top,glob_x_left_top+n,glob_y_left_top+m,color,color2);
 						if(diff.length==0) return;
 						//set_pixel("canvas0",glob_x_left_top+n+diff[0],glob_y_left_top+m+diff[1],color2);
-						set_pixel("canvas0",glob_x_left_top+n,glob_y_left_top+m,[255,255,255,255]); 
+						set_pixel("canvas0",glob_x_left_top+n,glob_y_left_top+m,getWhiteSpaceColor()); 
 						set_pixel("canvas0",diff[0],diff[1],color2);
 						send_to_server_changed_canvas(()=>{
 							
@@ -2006,7 +2008,7 @@ function f_whenUserLeftClickOnPixels(x,y,key)
 							 if(all_white_arround(ctx, glob_x_left_top,glob_y_left_top)) {
 								 
 								 if(is_gold(color2)) {
-				set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,[255,255,255,255]);
+				set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,getWhiteSpaceColor());
 				f_send_to_server_changed_canvas(()=>{
 							
 							f_samson(); //
@@ -2033,7 +2035,7 @@ function f_whenUserLeftClickOnPixels(x,y,key)
 			if(is_one_tr_black_arround(ctx, glob_x_left_top+n, glob_y_left_top+m)) return;
 			if(is_white(color2)) return;
 			if(is_gold(color2)) {
-				// set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,[255,255,255,255]);
+				// set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,getWhiteSpaceColor());
 				// send_to_server_changed_canvas(()=>{
 							
 							// samson(); //
@@ -2185,7 +2187,7 @@ else
 								}
 						}
 						else{
-								set_pixel("canvas0",glob_x_left_top+n,glob_y_left_top+m,[255,255,255,255]); 
+								set_pixel("canvas0",glob_x_left_top+n,glob_y_left_top+m,getWhiteSpaceColor()); 
 						set_pixel("canvas0",diff[0],diff[1],color2);
 						}
 						//set_pixel("canvas0",glob_x_left_top+n+diff[0],glob_y_left_top+m+diff[1],color2);
@@ -2225,7 +2227,7 @@ else
 							
 							
 						});
-						//try_to_fly();
+						//avtomatik_move_to();
 						//samson();
 						//location.reload();	
 						//if(is_stone_point(glob_x_left_top,glob_y_left_top)==true)	
@@ -2669,7 +2671,7 @@ function do_server_command(s)
 			
 			// if(document.getElementById("pcolor")) document.getElementById("pixels_buttons").removeChild(document.getElementById("pcolor"));
 					// var arr=null;
-					// if(xhr.responseText==',,,') arr=[255,255,255,255];
+					// if(xhr.responseText==',,,') arr=getWhiteSpaceColor();
 					// else arr=xhr.responseText.split(",");		
 					// console.log(arr);
 					// var canvas = document.createElement("canvas");
@@ -2820,6 +2822,21 @@ function is_near_non_grey(x,y)
 							
 	return false
 }
+
+function is_gold_near (x,y)
+{
+	var canvas = document.getElementById("canvas0");
+	var ctx = canvas.getContext("2d");
+	var im=ctx.getImageData(x-1,y-1,3,3);
+	for(var i=0;i<im.data.length;i+=4)
+	{
+		var color = [ im.data[i],im.data[i+1],im.data[i+2],im.data[i+3] ]
+		if(is_gold(color)) return true;
+	}
+							
+	return false
+}
+
 function is_near_grey(x,y)
 {
 	var canvas = document.getElementById("canvas0");
@@ -2853,7 +2870,7 @@ function is_neighbour_food( arr_i )
 
 function is_white(color2)
 {
-	var color=[255,255,255,255];
+	var color = getWhiteSpaceColor();
 	if(
 					(color2[0] == color[0]) &&
 					(color2[1] == color[1]) &&
@@ -2947,7 +2964,7 @@ function get_neighbours(x,y,callback)
 				}
 				while(found);
 				
-					var grey_color = [255,255,255,255];
+					var grey_color = getWhiteSpaceColor();
 					do
 				{
 					var found=false;
@@ -3926,7 +3943,7 @@ function f_pattern2canvas( session_id)
 					glob_x_left_top=Number(obj.x);
 					glob_y_left_top=Number(obj.y);
 					
-					//try_to_fly();
+					//avtomatik_move_to();
 					
 					// var canvas0 = document.getElementById("canvas0");
 					// var context0 = canvas0.getContext("2d");
@@ -4058,7 +4075,7 @@ function f_pattern2canvas( session_id)
 		
 		
 		
-		//set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,[255,255,255,255]);
+		//set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,getWhiteSpaceColor());
 	}
 	else{
 		
@@ -4211,7 +4228,7 @@ function f_get_session_id(callback)
 
 var global_do_work=false;
 var global_cliked_points_array=[];
-var global_bgcolor=[255,255,255,255];
+var global_bgcolor=getWhiteSpaceColor();
 var global_counter=0;
 var MAX_CHARGE=10;
 function processing_click()
@@ -4257,7 +4274,7 @@ function processing_click()
 										
 										if((filter_include(x,y) && filter_exclude(x,y))==false)
 										{
-											//try_to_fly_wrapper(x,y);
+											//avtomatik_move_to_wrapper(x,y);
 											//mod_salamander_pro_processing_avto_click();
 											global_do_work=false;	
 											return;
@@ -4288,11 +4305,11 @@ function processing_click()
 													// glob_y_left_top=global_dummy_fast_thread_border_cluster[mi][1]-1;
 													
 													/////////////// here we learn to fly /////////////////
-													//try_to_fly();
+													//avtomatik_move_to();
 													
 													////////////////////////////////////////////
 													
-												//	try_to_fly();
+												//	avtomatik_move_to();
 												
 												
 													if(check_all_white()) clean();
@@ -4324,7 +4341,7 @@ function processing_click()
 													
 													
 																	
-																//try_to_fly();	
+																//avtomatik_move_to();	
 																	
 																	 samson();
 																	
@@ -4336,7 +4353,7 @@ function processing_click()
 																	
 																	//labirint(glob_x_left_top,glob_y_left_top);
 																	 setTimeout(	function(){
-																		 try_to_fly();
+																		 avtomatik_move_to();
 																		 samson();
 																		// //labirint(glob_x_left_top,glob_y_left_top);
 																		
@@ -4463,6 +4480,19 @@ function gold_counter_incr()
 {
 	glob_gold_counter++;
 	gold_counter_refresh();
+}
+
+function takes_counter_refresh()
+{
+	localStorage.setItem("glob_takes_counter",""+glob_takes_counter);	
+	document.getElementById("takes_span_id").innerHTML = "TAKES: "+glob_takes_counter;
+
+}
+
+function takes_counter_incr()
+{
+	glob_takes_counter++;
+	takes_counter_refresh();
 }
 
 function createRasterPortalGates(points, colors, callback)
@@ -4668,7 +4698,7 @@ function doLeftClick(x,y,callback)
 							
 							context7.putImageData(imgData7,0,0);
 							global_dummy_fast_thread_border_cluster.push([x,y]);
-							post_bubabu(global_dummy_fast_thread_border_cluster,[255,255,255,255]);//global_fill_color); 
+							post_bubabu(global_dummy_fast_thread_border_cluster,getWhiteSpaceColor());//global_fill_color); 
 							refresh_map();
 							global_do_work=false;
 						
@@ -4804,7 +4834,7 @@ function click_on_white(x,y)
 	var f=false;
 	
 	{
-		if( rt_compareColors(bgcolor,[255,255,255,255],0)==true )
+		if( rt_compareColors(bgcolor,getWhiteSpaceColor(),0)==true )
 		{ f=true;}
 	}
 	return f;
@@ -4847,7 +4877,7 @@ function ctrlz(e)
 		
 		var imgData0 = context0.getImageData(0,0,canvas0.width,canvas0.height);
 		var _color= getColorArrayFromImageData(imgData0, x, y);
-		var bgcolor = [255,255,255,255];
+		var bgcolor = getWhiteSpaceColor();
 		
 		
 		if( (bgcolor[0]==_color[0]) && (bgcolor[1]==_color[1]) && (bgcolor[2]==_color[2]) && (bgcolor[3]==_color[3]) ) 
@@ -5095,7 +5125,7 @@ function	whenUserLeftClickOnPixels(x,y,key)
 							 if(all_white_arround(ctx, glob_x_left_top,glob_y_left_top)) {
 								 
 								 if(is_gold(color2)) {
-				set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,[255,255,255,255]);
+				set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,getWhiteSpaceColor());
 				send_to_server_changed_canvas(()=>{
 							
 							samson(); //
@@ -5115,7 +5145,7 @@ function	whenUserLeftClickOnPixels(x,y,key)
 			if(is_one_tr_black_arround(ctx, glob_x_left_top+n, glob_y_left_top+m)) return;
 			if(is_white(color2)) return;
 			if(is_gold(color2)) {
-				// set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,[255,255,255,255]);
+				// set_pixel("canvas0",glob_x_left_top+n, glob_y_left_top+m,getWhiteSpaceColor());
 				// send_to_server_changed_canvas(()=>{
 							
 							// samson(); //
@@ -5254,7 +5284,7 @@ else
 						var diff = get_diff_direct(glob_x_left_top,glob_y_left_top,glob_x_left_top+n,glob_y_left_top+m,color,color2);
 						if(diff.length==0) return;
 						//set_pixel("canvas0",glob_x_left_top+n+diff[0],glob_y_left_top+m+diff[1],color2);
-						set_pixel("canvas0",glob_x_left_top+n,glob_y_left_top+m,[255,255,255,255]); 
+						set_pixel("canvas0",glob_x_left_top+n,glob_y_left_top+m,getWhiteSpaceColor()); 
 						set_pixel("canvas0",diff[0],diff[1],color2);
 						send_to_server_changed_canvas(()=>{
 							
@@ -5291,7 +5321,7 @@ else
 							
 							
 						});
-						//try_to_fly();
+						//avtomatik_move_to();
 						//samson();
 						//location.reload();	
 						//if(is_stone_point(glob_x_left_top,glob_y_left_top)==true)	
@@ -5373,7 +5403,7 @@ function get_diff_direct(x0,y0,x,y, color0,color2)
 				
 		var color = [ im.data[i],im.data[i+1],im.data[i+2],im.data[i+3] ]
 		
-		if(compareColors(color,[255,255,255,255])) {arr.push([n,m]); i+=4;continue;}
+		if(compareColors(color,getWhiteSpaceColor())) {arr.push([n,m]); i+=4;continue;}
 		if(compareColors(color,color2)) { i+=4;continue;}
 		if(compareColors(color,color0)) { i+=4;continue;}
 		
@@ -5438,7 +5468,7 @@ function use_magnito_power(x0,y0,x,y, color0,color2)
 				
 		// var color = [ im.data[i],im.data[i+1],im.data[i+2],im.data[i+3] ]
 		
-		// if(compareColors(color,[255,255,255,255])) {arr.push([n,m]); i+=4;continue;}
+		// if(compareColors(color,getWhiteSpaceColor())) {arr.push([n,m]); i+=4;continue;}
 		// if(compareColors(color,color2)) { i+=4;continue;}
 		// if(compareColors(color,color0)) { i+=4;continue;}
 		
@@ -5472,7 +5502,7 @@ function exit(num,msg)
 
 function is_white(color2)
 {
-	var color=[255,255,255,255];
+	var color=getWhiteSpaceColor();
 	if(
 					(color2[0] == color[0]) &&
 					(color2[1] == color[1]) &&
@@ -5539,8 +5569,10 @@ function call_salamandra()
 	fake_event.offsetY=getRandomInt(1,document.getElementById("canvas0").height-1);
 	fake_whenBrakabakaEventOccurs(fake_event);
 }
+
 function call_non_salamandra(x,y)
 {
+	
 	var fake_event={};
 	fake_event.preventDefault=function(){};
 	
@@ -5621,7 +5653,7 @@ function whenBrakabakaEventOccurs(e)
 		
 		var imgData0 = context0.getImageData(0,0,canvas0.width,canvas0.height);
 		var _color= get_near_first_non_white(x,y); //getColorArrayFromImageData(imgData0, x, y);
-		if(_color==null)_color=[255,255,255,255];
+		if(_color==null)_color=getWhiteSpaceColor();
 		if(is_white(_color)&&all_white_arround(context0, x, y)) 
 		{
 			clear_riffle();
@@ -5632,7 +5664,7 @@ function whenBrakabakaEventOccurs(e)
 		}
 		else	if(global_number_of_user_clicks_from_last_tick>500)
 			{
-			context0.fillStyle=getStrColorFromRGBAArray([255,255,255,255]);
+			context0.fillStyle=getStrColorFromRGBAArray(getWhiteSpaceColor());
 			context0.beginPath();
 			context0.arc(x,y,5,0,2*Math.PI);
 			context0.fill();
@@ -5781,7 +5813,7 @@ function is_one_tr_black_arround(context0,x,y)
 
 function take_gold(x,y)
 {
-	set_pixel("canvas0",x,y,[255,255,255,255]);
+	set_pixel("canvas0",x,y,getWhiteSpaceColor());
 	send_to_server_changed_canvas(()=>{
 							
 		samson(); //
@@ -6323,8 +6355,9 @@ function isExistAnyNotRemovedClusters()
 					else if(ch=='s') {	
 					//save_for_gif();
 					}
+					else if (ch=='r') { rocket_jump(); }
 					else if(ch=='c') {	alert([glob_x_left_top,glob_y_left_top]); }
-					else if(ch=='t') {  create_new_stone(); }
+					//else if(ch=='t') {  create_new_stone(); }
 					else if(ch=='n') { if( prompt("Are you sure for new game? (y/n)","y")=="y" ) clean(); }
 					else if(ch=='z') { 
 					//if( prompt("Are you sure for ctrl+z? (y/n)","y")=="y" ) 
@@ -6765,7 +6798,14 @@ function findRemovedClusterIndexByColor(color)
 	return -1;
 }
 
-
+function getWhiteSpaceColor() {
+	var color = [];
+	color[0] = 42;	
+	color[1] = 53;	
+	color[2] = 64;
+	color[3] = 255;	
+	return color;
+}
 
 function clean()
 {
@@ -6792,12 +6832,8 @@ function clean()
 		{
 			var idx = (w * j + i) << 2;	
 			
-			var arr = [];
-			arr[0] = 255;	
-			arr[1] = 255;	
-			arr[2] = 255;
-			arr[3] = 255;	
-			
+			var arr = getWhiteSpaceColor();
+						
 			imgData = fillRectangleFast(imgData, i, j, 1, 1, arr );
 			
 		}
@@ -6919,9 +6955,9 @@ function whenPastingFinished(img)
 	glob_y_left_top=glob_y_left_top1;
 	
 	var color = context2.getImageData(glob_x_left_top1,glob_y_left_top1,1,1).data;
-	set_pixel("canvas0",glob_x_left_top1,glob_y_left_top1,[255,255,255,255]); 
+	set_pixel("canvas0",glob_x_left_top1,glob_y_left_top1,getWhiteSpaceColor()); 
 						
-	try_to_fly();
+	avtomatik_move_to();
 
 	set_pixel("canvas0",glob_x_left_top1,glob_y_left_top1,color); 
 	
@@ -6979,31 +7015,63 @@ function get_min_near_point(points,point)
 	
 }
 
+function get_max_color_cell(x,y){
 
-function try_to_fly(){
-	
-	if( is_white_xy(glob_x_left_top,glob_y_left_top) == false) 
-	{
-		if( tr_black_xy(glob_x_left_top,glob_y_left_top) == false) return;
-	}		
-	
 	var canvas2 = document.getElementById("canvas0");
+	var context2 = canvas2.getContext("2d");
+	
+	var w = canvas2.width;
+	var h = canvas2.height;
+	var im = context2.getImageData(0,0,w,h);
+	var counter=0;
+	for(var i=x-1;i<x+2;i++)
+	{
+		for(var j=y-1;j<y+2;j++)
+		{
+			//var color0 =  context2.getImageData(glob_x_left_top,glob_y_left_top,1,1).data;
+			if(tr_black_xy(i,j)) counter++;
+		}
+	}
+	
+	return 8-counter;
+	
+}
+
+function move_to() {
+ 
+ return;
+ 
+	var canvas2 = document.getElementById("canvas0");
+	var context2 = canvas2.getContext("2d");
+	var imgData2 = context2.getImageData(0,0,canvas2.width,canvas2.height);
+	var color0 =  context2.getImageData(glob_x_left_top,glob_y_left_top,1,1).data;
+	
+	global_cell_size = Number(document.getElementById("cell_size").value);
+	
+	var dx = global_cell_size;
+	var dy = dx;
 	
 	
-	// var canvas2 = document.getElementById("canvas0");
-	// canvas2.width = canvas.width*n;
-	// canvas2.height = canvas.height*n;
-	// var context2 = canvas2.getContext("2d");
 	
 	var w = canvas2.width;
 	var h = canvas2.height;
 	
+	
+	
+	var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), glob_x_left_top,glob_y_left_top, dx, dy );
+		//if(arrN.length == 8) { //worker of year
+		if(arrN[0].length !=  get_max_color_cell( glob_x_left_top,glob_y_left_top)) {
+			return;
+		} 
+	
+	
+	
 	var arr = dummy_fast(glob_x_left_top,glob_y_left_top);
-	//post_bubabu(arr[1],[0,0,255,255]);
-	//return;
-	// save_all_settings_on_server();
-	// samson();
-	//var arr1 = grey_in_neighbours(arr[1]);
+	// //post_bubabu(arr[1],[0,0,255,255]);
+	// //return;
+	// // save_all_settings_on_server();
+	// // samson();
+	// //var arr1 = grey_in_neighbours(arr[1]);
 	var arr2 =[];
 	for(var i=0;i<arr[1].length;i++)
 	{
@@ -7011,15 +7079,15 @@ function try_to_fly(){
 		var y = arr[1][i][1];
 		
 		//if(tr_black(color0)) continue;
-	//	if(filter_include(x,y)==false) continue;
-	//	if(filter_exclude(x,y)==false) continue;
-		//if(is_white(color0)==true) continue;
+	// //	if(filter_include(x,y)==false) continue;
+	// //	if(filter_exclude(x,y)==false) continue;
+		// //if(is_white(color0)==true) continue;
 		
 		
-		// if(x<1)  continue;
-		// if(x>w-2) continue;
-		// if(y<1) continue;
-		// if(y>h-2)continue;
+		// // if(x<1)  continue;
+		// // if(x>w-2) continue;
+		// // if(y<1) continue;
+		// // if(y>h-2)continue;
 		
 			
 		if(x<0)  continue;
@@ -7027,92 +7095,596 @@ function try_to_fly(){
 		if(y<0) continue;
 		if(y>h-1)continue;
 		
-		
-		if(is_white_xy(x,y)==true) continue;
-		if(is_gold_xy(x,y)==true) continue;
-		
-		arr2.push([x,y]);
-	}
-	
-	
-	
-	
-	
-//	var arr1 = not_grey_in_neighbours(arr2);
-	 
-	if(arr2.length>0)
-	{
-		var ind = get_min_near_point(arr2,[glob_x_left_top,glob_y_left_top]);
-		glob_x_left_top=arr2[ind][0];
-		glob_y_left_top=arr2[ind][1];
-		refresh_map();
-		// save_for_gif();
-	}
-	else{
-		
-		
-		var canvas2 = document.getElementById("canvas0");
-		var context2 = canvas2.getContext("2d");
-		var im0 = context2.getImageData(glob_x_left_top,glob_y_left_top,1,1);
-		var im = context2.getImageData(glob_x_left_top,glob_y_left_top,3,3);
-		var x = glob_x_left_top;
-		var y= glob_y_left_top;
-		var i=0;
-		var j=0;
-		var n=-1;
-		var found=false;
-		for(j=y-1;j<y+2;j++)
+		var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), x,y, dx, dy );
+		for(var j=0;j<arrN[1].length;j++)
 		{
-			for(i=x-1;i<x+2;i++)
-			{
-				
-				if( is_white_xy(i,j)) continue; 
-				if( tr_black_xy(i,j)) continue; 
-				if(is_gold_xy(x,y)==true) continue;
-		
-				found=true;
-				break;
-			}
-			if(found) break;
+			var x2 = arrN[1][j][0];
+			var y2 = arrN[1][j][1];
+			if(is_gold_xy(x2,y2)==true) continue;
+			arr2.push([x2,y2]);
+			break;
 		}
-		if(found==false) 
-		{
-		var arr = dummy_fast(x,y);
+		 
+		
+		
+		
+	}
+	
+	glob_x_left_top=arr2[0][0];
+	glob_y_left_top=arr2[0][1];
+
+
+
+	
+	
+	
+	
+
+}
+
+function move_to_new_coordinates() {
+f_doLeftClick(glob_x_left_top,glob_y_left_top,function() {
+													
+												
+												
+		if(check_all_white()) clean();
+						
+	
+		
+		
+				f_send_to_server_changed_canvas( function(){
+					
+						
+						 f_samson();
+						
+						 setTimeout(	function(){
+							 avtomatik_move_to();
+							 f_samson();
+							
+							 },500);
+						global_do_work=false;	
+						
+				});
+			
+	});
+
+	
+
+}
+
+function rocket_jump() {
+	
+	var canvas2 = document.getElementById("canvas0");
+	var context2 = canvas2.getContext("2d");
+	var imgData2 = context2.getImageData(0,0,canvas2.width,canvas2.height);
+	var color0 =  context2.getImageData(glob_x_left_top,glob_y_left_top,1,1).data;
+	
+
+
+	global_cell_size = Number(document.getElementById("cell_size").value);
+	
+	var dx = global_cell_size;
+	var dy = dx;
+	
+
+		var w = canvas2.width;
+		var h = canvas2.height;
+		
+		
+		
+		
+	var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), glob_x_left_top,glob_y_left_top, dx, dy );
+		//if(arrN.length == 8) { //worker of year
+		if(arrN[0].length !=  get_max_color_cell( glob_x_left_top,glob_y_left_top)) {
+			return;
+		}
+
+		
+	
+		var arr = dummy_fast(glob_x_left_top,glob_y_left_top);
+		// //post_bubabu(arr[1],[0,0,255,255]);
+		// //return;
+		// // save_all_settings_on_server();
+		// // samson();
+		// //var arr1 = grey_in_neighbours(arr[1]);
+		var arr2 =[];
 		for(var i=0;i<arr[1].length;i++)
 		{
 			var x = arr[1][i][0];
 			var y = arr[1][i][1];
-			var rc = get_near_first_non_white_full(x,y);
-			if(rc.length==0) continue;
-			glob_x_left_top=rc[0];
-			glob_y_left_top=rc[1];
-			break;
-		}
-		//post_bubabu(arr[1],[0,0,255,255]);	
-		//samson();
-		//return;
-		}
-		else{
-		glob_x_left_top=i;
-		glob_y_left_top=j;
+			
+			//if(tr_black(color0)) continue;
+		// //	if(filter_include(x,y)==false) continue;
+		// //	if(filter_exclude(x,y)==false) continue;
+			// //if(is_white(color0)==true) continue;
+			
+			
+			// // if(x<1)  continue;
+			// // if(x>w-2) continue;
+			// // if(y<1) continue;
+			// // if(y>h-2)continue;
+			
+				
+			if(x<0)  continue;
+			if(x>w-1) continue;
+			if(y<0) continue;
+			if(y>h-1)continue;
+			
+			var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), x,y, dx, dy );
+			for(var j=0;j<arrN[1].length;j++)
+			{
+				var x2 = arrN[1][j][0];
+				var y2 = arrN[1][j][1];
+				
+				if(is_gold_xy(x2,y2)==true) continue;
+				
+				arr2.push([x2,y2]);
+				break;
+			}
+			 
+			
+			
+			
 		}
 		
-		var color0 =  context2.getImageData(glob_x_left_top,glob_y_left_top,1,1).data;
-		if(only_one_color_center(context2, glob_x_left_top,glob_y_left_top,color0)) {
-			global_state=null;
+		
+		shuffle(arr2);	
+
+
+			//var ind = get_min_near_point(arr2,[glob_x_left_top,glob_y_left_top]);
+			var ind=0;
+			glob_x_left_top=arr2[ind][0];
+			glob_y_left_top=arr2[ind][1];
+
+
+ 
+
+
+	
+	refresh_map();
+	f_send_to_server_changed_canvas( function(){
+																
+			f_labirint(glob_x_left_top,glob_y_left_top);
+			launch_robot();
+			call_control_z_function();
+		//	save_key_point_canvas();
+		//  save_micro_for_gif();
+		    refresh_map();
+			global_do_work=false;	
+	});
 			
+}
+ 
+function avtomatik_move_to(){
+
+
+
+var canvas2 = document.getElementById("canvas0");
+	var context2 = canvas2.getContext("2d");
+	var imgData2 = context2.getImageData(0,0,canvas2.width,canvas2.height);
+	var color0 =  context2.getImageData(glob_x_left_top,glob_y_left_top,1,1).data;
+	
+	global_cell_size = Number(document.getElementById("cell_size").value);
+	
+	var dx = global_cell_size;
+	var dy = dx;
+	
+
+	if( is_white_xy(glob_x_left_top,glob_y_left_top) == true) 
+	{
+
+
+
+
+		var w = canvas2.width;
+		var h = canvas2.height;
+		
+		var arr = dummy_fast(glob_x_left_top,glob_y_left_top);
+		// //post_bubabu(arr[1],[0,0,255,255]);
+		// //return;
+		// // save_all_settings_on_server();
+		// // samson();
+		// //var arr1 = grey_in_neighbours(arr[1]);
+		var arr2 =[];
+		for(var i=0;i<arr[1].length;i++)
+		{
+			var x = arr[1][i][0];
+			var y = arr[1][i][1];
+			
+			//if(tr_black(color0)) continue;
+		// //	if(filter_include(x,y)==false) continue;
+		// //	if(filter_exclude(x,y)==false) continue;
+			// //if(is_white(color0)==true) continue;
+			
+			
+			// // if(x<1)  continue;
+			// // if(x>w-2) continue;
+			// // if(y<1) continue;
+			// // if(y>h-2)continue;
+			
+				
+			if(x<0)  continue;
+			if(x>w-1) continue;
+			if(y<0) continue;
+			if(y>h-1)continue;
+			
+			var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), x,y, dx, dy );
+			for(var j=0;j<arrN[1].length;j++)
+			{
+				var x2 = arrN[1][j][0];
+				var y2 = arrN[1][j][1];
+				
+				if(is_gold_xy(x2,y2)==true) continue;
+				
+				arr2.push([x2,y2]);
+				break;
+			}
+			 
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+	// // //	var arr1 = not_grey_in_neighbours(arr2);
+		 
+		if(arr2.length>0)
+		{
+
+
+
+			var ind = get_min_near_point(arr2,[glob_x_left_top,glob_y_left_top]);
+			move_to_new_coordinates();
+			glob_x_left_top=arr2[ind][0];
+			glob_y_left_top=arr2[ind][1];
+
+			
+
+			return;
+
+
+		}
+
+	 
+		return ;
+	
+	}
+	else 
+	{
+		 
+		 
+	if( is_gold_xy(glob_x_left_top,glob_y_left_top) == false) 
+	{
+
+
+		var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), glob_x_left_top,glob_y_left_top, dx, dy );
+		//if(arrN.length == 8) { //worker of year
+		if(arrN[0].length !=  get_max_color_cell( glob_x_left_top,glob_y_left_top)) {
+			return;
+		} 
+	
+
+
+		var w = canvas2.width;
+		var h = canvas2.height;
+		
+		var arr = dummy_fast(glob_x_left_top,glob_y_left_top);
+		// //post_bubabu(arr[1],[0,0,255,255]);
+		// //return;
+		// // save_all_settings_on_server();
+		// // samson();
+		// //var arr1 = grey_in_neighbours(arr[1]);
+		var arr2 =[];
+		for(var i=0;i<arr[1].length;i++)
+		{
+			var x = arr[1][i][0];
+			var y = arr[1][i][1];
+			
+			//if(tr_black(color0)) continue;
+		// //	if(filter_include(x,y)==false) continue;
+		// //	if(filter_exclude(x,y)==false) continue;
+			// //if(is_white(color0)==true) continue;
+			
+			
+			// // if(x<1)  continue;
+			// // if(x>w-2) continue;
+			// // if(y<1) continue;
+			// // if(y>h-2)continue;
+			
+				
+			if(x<0)  continue;
+			if(x>w-1) continue;
+			if(y<0) continue;
+			if(y>h-1)continue;
+			
+			var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), x,y, dx, dy );
+			for(var j=0;j<arrN[1].length;j++)
+			{
+				var x2 = arrN[1][j][0];
+				var y2 = arrN[1][j][1];
+				
+				if(is_gold_xy(x2,y2)==true) continue;
+				
+				arr2.push([x2,y2]);
+				break;
+			}
+			 
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+	// // //	var arr1 = not_grey_in_neighbours(arr2);
+		 
+		if(arr2.length>0)
+		{
+
+
+
+			var ind = get_min_near_point(arr2,[glob_x_left_top,glob_y_left_top]);
+			move_to_new_coordinates();
+			glob_x_left_top=arr2[ind][0];
+			glob_y_left_top=arr2[ind][1];
+
+			
+
+			return;
+
+
+		}
+
+		 
+		 
+		 return;
+	}
+	
+	return;
+	}
+	
+	return;
+	
+	
+	if(is_gold(color0)) {
+	
+		var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), glob_x_left_top,glob_y_left_top, dx, dy );
+		 
+		if(arrN[0].length == 8) {
+			global_state = null;
 			moves_counter_incr();
 			if(is_gold(color0)) gold_counter_incr();
 			call_non_salamandra(glob_x_left_top,glob_y_left_top);
 			return;
-		}
+		} 
+	
 		
-		
-		
-		refresh_map();
-		
-		// location.reload();
+	
 	}
+	
+	if( is_white_xy(glob_x_left_top,glob_y_left_top) == false) 
+	{
+		var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), glob_x_left_top,glob_y_left_top, dx, dy );
+		//if(arrN.length == 8) { //worker of year
+		if(arrN[0].length == 8) {
+			global_state = null;
+			moves_counter_incr();
+			if(is_gold(color0)) gold_counter_incr();
+			call_non_salamandra(glob_x_left_top,glob_y_left_top);
+			return;
+		} else {
+		
+			var arrN = getSameColorNeighbors0( imgData2, color0, glob_x_left_top,glob_y_left_top, dx, dy );
+			//if(arrN.length == 0) { // worker of year
+			if(arrN[0].length == 0) {	
+			
+			
+			var arrN = getSameColorNeighbors0( imgData2, [255,215,0,255], glob_x_left_top,glob_y_left_top, dx, dy );
+			if(arrN[0].length == 0)
+			{
+			
+				global_state = null;
+				moves_counter_incr();
+				if(is_gold(color0)) gold_counter_incr();
+				call_non_salamandra(glob_x_left_top,glob_y_left_top);
+				return;
+			}
+			else return;
+			}
+			else return;
+		
+		}
+	}
+	
+		// // //если вокруг точки glob_x_left_top,glob_y_left_top все белые то надо проверить цвет точки под нами
+		// // // если золотой собрать золото.
+		// // // если не золотой собрать эту точку
+		
+		// // var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), glob_x_left_top,glob_y_left_top, dx, dy );
+		// // if(arrN[0].length == 8) {
+			
+			// // if( is_gold_xy(glob_x_left_top,glob_y_left_top)) {
+				// // //collect gold 
+				// // //f_take_gold(glob_x_left_top,glob_y_left_top);
+				// // //avtomatik_move_to();
+				// // //alert("Collect gold not implemented yet");
+				// // //f_whenRightClick_part2(glob_x_left_top,glob_y_left_top);
+				// // //avtomatik_move_to();
+				// // //return;
+				
+				// // var rnd = getRandomInt(0,8);
+				// // glob_x_left_top=arrN[0][rnd][0];
+				// // glob_y_left_top=arrN[0][rnd][1];
+				
+				// // //f_whenRightClick_part2(glob_x_left_top,glob_y_left_top);
+				// // avtomatik_move_to();
+				// // return;
+			// // }		
+			// // else {
+				// // var rnd = getRandomInt(0,8);
+				// // glob_x_left_top=arrN[0][rnd][0];
+				// // glob_y_left_top=arrN[0][rnd][1];
+				
+				// // //f_whenRightClick_part2(glob_x_left_top,glob_y_left_top);
+				// // avtomatik_move_to();
+				// // return;
+			// // }
+		
+		// // }	
+		
+		// // return;
+	// // }		
+	
+	// // // var canvas2 = document.getElementById("canvas0");
+	
+	//move_to();
+	return;
+	
+	// // var canvas2 = document.getElementById("canvas0");
+	// // canvas2.width = canvas.width*n;
+	// // canvas2.height = canvas.height*n;
+	// // var context2 = canvas2.getContext("2d");
+	
+	var w = canvas2.width;
+	var h = canvas2.height;
+	
+	var arr = dummy_fast(glob_x_left_top,glob_y_left_top);
+	// //post_bubabu(arr[1],[0,0,255,255]);
+	// //return;
+	// // save_all_settings_on_server();
+	// // samson();
+	// //var arr1 = grey_in_neighbours(arr[1]);
+	var arr2 =[];
+	for(var i=0;i<arr[1].length;i++)
+	{
+		var x = arr[1][i][0];
+		var y = arr[1][i][1];
+		
+		//if(tr_black(color0)) continue;
+	// //	if(filter_include(x,y)==false) continue;
+	// //	if(filter_exclude(x,y)==false) continue;
+		// //if(is_white(color0)==true) continue;
+		
+		
+		// // if(x<1)  continue;
+		// // if(x>w-2) continue;
+		// // if(y<1) continue;
+		// // if(y>h-2)continue;
+		
+			
+		if(x<0)  continue;
+		if(x>w-1) continue;
+		if(y<0) continue;
+		if(y>h-1)continue;
+		
+		var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), x,y, dx, dy );
+		for(var j=0;j<arrN[1].length;j++)
+		{
+			var x2 = arrN[1][j][0];
+			var y2 = arrN[1][j][1];
+			// if(is_gold_xy(x2,y2)==true) continue;
+			arr2.push([x2,y2]);
+		}
+		 
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+// // //	var arr1 = not_grey_in_neighbours(arr2);
+	 
+	if(arr2.length>0)
+	{
+		var ind = get_min_near_point(arr2,[glob_x_left_top,glob_y_left_top]);
+		
+		glob_x_left_top=arr2[ind][0];
+		glob_y_left_top=arr2[ind][1];
+		
+		//	global_state = null;
+		//	moves_counter_incr();
+		//	if(is_gold(color0)) gold_counter_incr();
+		//	call_non_salamandra(glob_x_left_top,glob_y_left_top);
+			
+		refresh_map();
+		//avtomatik_move_to();
+		return;
+		// // // // save_for_gif();
+	}
+	// // // else{
+		
+		
+		// // // var canvas2 = document.getElementById("canvas0");
+		// // // var context2 = canvas2.getContext("2d");
+		// // // var im0 = context2.getImageData(glob_x_left_top,glob_y_left_top,1,1);
+		// // // var im = context2.getImageData(glob_x_left_top,glob_y_left_top,3,3);
+		// // // var x = glob_x_left_top;
+		// // // var y= glob_y_left_top;
+		// // // var i=0;
+		// // // var j=0;
+		// // // var n=-1;
+		// // // var found=false;
+		// // // for(j=y-1;j<y+2;j++)
+		// // // {
+			// // // for(i=x-1;i<x+2;i++)
+			// // // {
+				
+				// // // if( is_white_xy(i,j)) continue; 
+				// // // if( tr_black_xy(i,j)) continue; 
+				// // // // if(is_gold_xy(x,y)==true) continue;
+		
+				// // // found=true;
+				// // // break;
+			// // // }
+			// // // if(found) break;
+		// // // }
+		// // // if(found==false) 
+		// // // {
+		// // // var arr = dummy_fast(x,y);
+		// // // for(var i=0;i<arr[1].length;i++)
+		// // // {
+			// // // var x = arr[1][i][0];
+			// // // var y = arr[1][i][1];
+			// // // var rc = get_near_first_non_white_full(x,y);
+			// // // if(rc.length==0) continue;
+			// // // glob_x_left_top=rc[0];
+			// // // glob_y_left_top=rc[1];
+			// // // break;
+		// // // }
+		// // // //post_bubabu(arr[1],[0,0,255,255]);	
+		// // // //samson();
+		// // // //return;
+		// // // }
+		// // // else{
+		// // // glob_x_left_top=i;
+		// // // glob_y_left_top=j;
+		// // // }
+		
+		// // var color0 =  context2.getImageData(glob_x_left_top,glob_y_left_top,1,1).data;
+		// // // //if(only_one_color_center(context2, glob_x_left_top,glob_y_left_top,color0)) {
+			
+			// // global_state=null;
+			
+			// // moves_counter_incr();
+			// // if(is_gold(color0)) gold_counter_incr();
+			// // call_non_salamandra(glob_x_left_top,glob_y_left_top);
+			// // // // return;
+		// // // // }
+		
+		
+		
+		// // //refresh_map();
+		
+		// // // location.reload();
+// // //	}
 }
 
 global_time_is_now=0;
@@ -7541,13 +8113,13 @@ function clean_single_pixels(	callback	)
 							 						
 							var bgcolor = getColorArrayFromImageData(imgData_c, xs, ys);
 							// //glob_all_generated_stones[i].color
-							if( rt_compareColors([255,255,255,255],bgcolor,0)==true )
+							if( rt_compareColors(getWhiteSpaceColor(),bgcolor,0)==true )
 							{
 								
 							}
 							else
 							{
-								imgData=fillRectangleFast(imgData,xs,ys,1,1,[255,255,255,255]);
+								imgData=fillRectangleFast(imgData,xs,ys,1,1,getWhiteSpaceColor());
 								ctx_c.putImageData(imgData,0,0);
 							}
 							

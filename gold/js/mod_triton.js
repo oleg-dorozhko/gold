@@ -140,7 +140,7 @@ function mod_triton_motion_animate(x,y)
 		var xy = mod_triton_global_need_white_point_array.shift();
 		var x = xy[0];
 		var y = xy[1];
-		mod_triton_global_dummy_fast_thread_imgData=mod_triton_fillRectangleFast(mod_triton_global_dummy_fast_thread_imgData,x,y,1,1,[255,255,255,255]);
+		mod_triton_global_dummy_fast_thread_imgData=mod_triton_fillRectangleFast(mod_triton_global_dummy_fast_thread_imgData,x,y,1,1,getWhiteSpaceColor());
 		var canvas7 = document.getElementById("canvas0");
 		var context7 = canvas7.getContext("2d");
 		context7.putImageData(mod_triton_global_dummy_fast_thread_imgData,0,0);	
@@ -167,7 +167,7 @@ function mod_triton_motion_animate(x,y)
 		
 		
 		
-			// mod_triton_global_dummy_fast_thread_imgData=mod_triton_fillRectangleFast(mod_triton_global_dummy_fast_thread_imgData,x,y,1,1,[255,255,255,255]);//global_fill_color);
+			// mod_triton_global_dummy_fast_thread_imgData=mod_triton_fillRectangleFast(mod_triton_global_dummy_fast_thread_imgData,x,y,1,1,getWhiteSpaceColor());//global_fill_color);
 			// var canvas7 = document.getElementById("canvas0");
 			// var context7 = canvas7.getContext("2d");
 					
@@ -261,7 +261,7 @@ function mod_triton_motion_animate(x,y)
 							
 							context7.putImageData(imgData7,0,0);
 							mod_triton_global_dummy_fast_thread_border_cluster.push([x,y]);
-							mod_triton_post_bubabu(mod_triton_global_dummy_fast_thread_border_cluster,[255,255,255,255]);//global_fill_color); 
+							mod_triton_post_bubabu(mod_triton_global_dummy_fast_thread_border_cluster,getWhiteSpaceColor());//global_fill_color); 
 
 						//	global_state=null;
 						
@@ -619,7 +619,7 @@ function mod_triton_is_neighbour_food( arr_i )
 
 function mod_triton_white(color2)
 {
-	var color=[255,255,255,255];
+	var color=getWhiteSpaceColor();
 	if(
 					(color2[0] == color[0]) &&
 					(color2[1] == color[1]) &&

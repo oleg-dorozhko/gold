@@ -249,7 +249,7 @@ function redrawAllAround(num)
 	{
 		
 			//context2.fillStyle = strColor; //'rgba('+(255-color[0])+','+(255-color[1])+','+(255-color[2])+',1)'; 
-			var color = [255,255,255,255];
+			var color = getWhiteSpaceColor();
 			if(global_table_of_clusters[kromka[i][2]].in_use==true)  color=global_table_of_clusters[kromka[i][2]].color;
 			context2.fillStyle = 'rgba('+color[0]+','+color[1]+','+color[2]+','+(color[3]/255)+')'; 
 			context2.fillRect( kromka[i][0], kromka[i][1], global_cell_size, global_cell_size );

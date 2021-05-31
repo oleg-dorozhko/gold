@@ -1073,7 +1073,7 @@ function end_of_game()
 /*
 function game_move()
 {
-	var color = [255,255,255,255];
+	var color = getWhiteSpaceColor();
 	global_cell_size = Number( document.getElementById("cell_size").value );
 	var canvas2 = document.getElementById("canvas0");
 	var context2 = canvas2.getContext("2d");	

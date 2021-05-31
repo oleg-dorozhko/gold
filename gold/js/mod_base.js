@@ -105,7 +105,7 @@ function f_doLeftClick(x,y,callback)
 							
 							context7.putImageData(imgData7,0,0);
 							global_dummy_fast_thread_border_cluster.push([x,y]);
-							post_bubabu(global_dummy_fast_thread_border_cluster,[255,255,255,255]);//global_fill_color); 
+							post_bubabu(global_dummy_fast_thread_border_cluster,getWhiteSpaceColor());//global_fill_color); 
 							refresh_map();
 							global_do_work=false;
 						
@@ -188,7 +188,7 @@ function create_new_base( pswd, filename, folder_name, canvas, onsuccess, onerro
 
 function robot_home()
 {
-	try_to_fly();
+	avtomatik_move_to();
 	f_samson();
 	
 }

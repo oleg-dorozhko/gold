@@ -59,7 +59,7 @@ function help()
 			return function(){
 				
 				//var j = arr_of_points[min_index][0];
-				//post_bubabu(arr_of_points[min_index][2],[255,255,255,255]);//global_table_of_clusters[j].color);
+				//post_bubabu(arr_of_points[min_index][2],getWhiteSpaceColor());//global_table_of_clusters[j].color);
 				
 				var kromka = arr_of_points[min_index][2];
 				
@@ -146,7 +146,7 @@ function help()
 			return function(){
 				
 				//var j = arr_of_points[min_index][0];
-				//post_bubabu(arr_of_points[min_index][2],[255,255,255,255]);//global_table_of_clusters[j].color);
+				//post_bubabu(arr_of_points[min_index][2],getWhiteSpaceColor());//global_table_of_clusters[j].color);
 				
 				var kromka = arr_of_points[min_index][2];
 				
@@ -216,7 +216,7 @@ function help()
 			var min_index=0;
 			arr_of_points.push([j,points,kromka]);
 			
-				post_bubabu(points,[255,255,255,255]); 
+				post_bubabu(points,getWhiteSpaceColor()); 
 			
 			
 			
@@ -226,7 +226,7 @@ function help()
 			return function(){
 				
 				//var j = arr_of_points[min_index][0];
-				//post_bubabu(arr_of_points[min_index][2],[255,255,255,255]);//global_table_of_clusters[j].color);
+				//post_bubabu(arr_of_points[min_index][2],getWhiteSpaceColor());//global_table_of_clusters[j].color);
 				
 				var kromka = arr_of_points[min_index][2];
 				
@@ -279,7 +279,7 @@ function help()
 	
 	
 	
-	//[255,255,255,255]
+	//getWhiteSpaceColor()
 	function drawAllInnersByColor(borders_j, color)
 	{
 		
@@ -359,7 +359,7 @@ function help()
 	
 	
 	
-	//[255,255,255,255]
+	//getWhiteSpaceColor()
 	function ordinaryDrawAllInnersByColor(borders_j, color)
 	{
 		
@@ -525,7 +525,7 @@ function help()
 					if(global_table_of_clusters[j].in_use==true) continue;
 					
 					
-					post_bubabu(global_table_of_clusters[j].points,[255,255,255,255]); 
+					post_bubabu(global_table_of_clusters[j].points,getWhiteSpaceColor()); 
 				}
 				
 				

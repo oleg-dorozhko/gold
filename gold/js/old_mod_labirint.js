@@ -447,7 +447,7 @@ function doLeftClickOnPixelCanvas(x,y){
 			
 			// if(document.getElementById("pcolor")) document.getElementById("pixels_buttons").removeChild(document.getElementById("pcolor"));
 					// var arr=null;
-					// if(xhr.responseText==',,,') arr=[255,255,255,255];
+					// if(xhr.responseText==',,,') arr=getWhiteSpaceColor();
 					// else arr=xhr.responseText.split(",");		
 					// console.log(arr);
 					// var canvas = document.createElement("canvas");
@@ -551,7 +551,7 @@ function get_neighbours(x,y,callback)
 				}
 				while(found);
 				
-					var grey_color = [255,255,255,255];
+					var grey_color = getWhiteSpaceColor();
 					do
 				{
 					var found=false;

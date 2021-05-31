@@ -223,7 +223,7 @@ function setEventListenersOnTri_Btns()
 					var bgcolor = getColorArrayFromImageData(imgData7, glob_x_left_top, glob_y_left_top);
 						console.log(bgcolor);
 						
-					imgData7=fillRectangleFast(imgData7,glob_x_left_top,glob_y_left_top,1,1,[255,255,255,255]);
+					imgData7=fillRectangleFast(imgData7,glob_x_left_top,glob_y_left_top,1,1,getWhiteSpaceColor());
 					context7.putImageData(imgData7,0,0);
 						
 						
@@ -282,7 +282,7 @@ function setEventListenersOnTri_Btns()
 
 function white(color2)
 {
-	var color=[255,255,255,255];
+	var color=getWhiteSpaceColor();
 	if(
 					(color2[0] == color[0]) &&
 					(color2[1] == color[1]) &&

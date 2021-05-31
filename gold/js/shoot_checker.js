@@ -74,7 +74,7 @@ function isHourse2(obj1,obj2)
 	return false;
 }
 
-function isJump(obj1,obj2)
+function ismove_to(obj1,obj2)
 {
 	var n1 = obj1.nm[2];
 	var m1 = obj1.nm[3];
@@ -221,17 +221,17 @@ function placed(obj1,obj2)
 	return isWillSetOnOwnPlace(obj1, obj2);
 }
 
-function hourse(obj1,obj2) //throw jump (throw not b)
+function hourse(obj1,obj2) //throw move_to (throw not b)
 {
 }
 
 //atomic health
 //long move vertical, horizontal, diagonal
-//long jump vertical, horizontal, diagonal
-//long jump independece
+//long move_to vertical, horizontal, diagonal
+//long move_to independece
 //long swap independece
 //simple move dif(1) //move allowed when c b or p c (p b?) if b not placed and c not single
-//simple jump dif(2)
+//simple move_to dif(2)
 //simple swap dif(1), dif(2)
 //hourse swap
 //hourse move	
@@ -261,7 +261,7 @@ function shoot_check(arr_gun4)
 		
 		if(obj2 == null) return null;
 	
-		//alert('todo://jump pattern and colored Only not exact places! krepostnoe pravo eto kogda jump bacn on own color');
+		//alert('todo://move_to pattern and colored Only not exact places! krepostnoe pravo eto kogda move_to bacn on own color');
 		
 	//	if(document.getElementById("qflag1").checked == true ) all_checked=true;
 		
@@ -277,7 +277,7 @@ function shoot_check(arr_gun4)
 		{
 			if (isWillSetOnOwnPlace(obj1, obj2)) return null;
 			
-			return null;// jump_rnd_back2_check(obj1, obj2);
+			return null;// move_to_rnd_back2_check(obj1, obj2);
 			
 		}
 		
@@ -285,7 +285,7 @@ function shoot_check(arr_gun4)
 		if ( (obj2.frm.indexOf("kard_")!= -1 ) && (obj1.frm.indexOf("left_canvas")!= -1 ) )
 		{
 							
-				return null;// jump_check(obj1);
+				return null;// move_to_check(obj1);
 				
 		}
 		
@@ -294,7 +294,7 @@ function shoot_check(arr_gun4)
 		if ( (obj1.frm.indexOf("left_canvas")!= -1 ) && (obj2.frm.indexOf("left_canvas")!= -1 ) )
 		{
 			
-			if((n1 == n2) && (m1==m2)) return null;// jump_check(obj1);
+			if((n1 == n2) && (m1==m2)) return null;// move_to_check(obj1);
 			
 			
 			
@@ -305,7 +305,7 @@ function shoot_check(arr_gun4)
 			
 		
 			
-			//move or jump allowed when c b or p c (p b?) if b not placed and c not single and one from 8-side 
+			//move or move_to allowed when c b or p c (p b?) if b not placed and c not single and one from 8-side 
 			
 			// if( c(obj1) && b(obj2) && (!placed(obj1,obj2)) && (!single(obj1)) && diff_1(obj1,obj2) ) return obj2;
 			
@@ -464,10 +464,10 @@ function move_check(obj1, obj2)
 	var da = diagon_alleya_check(obj1,obj2);
 	if(da != null) return da;
 	
-	var jmg = jump_magnito_check(obj1,obj2);
+	var jmg = move_to_magnito_check(obj1,obj2);
 	if( jmg != null ) return jmg;
 	
-	var jda = jump_diagon_alleya_check(obj1,obj2);
+	var jda = move_to_diagon_alleya_check(obj1,obj2);
 	if(jda != null) return jda;
 	
 	var mg2 = magnito_check(obj2,obj1);
@@ -476,10 +476,10 @@ function move_check(obj1, obj2)
 	var da2 = diagon_alleya_check(obj2,obj1);
 	if(da2 != null) return da2;
 	
-	var jmg2 = jump_magnito_check(obj2,obj1);
+	var jmg2 = move_to_magnito_check(obj2,obj1);
 	if( jmg2 != null ) return jmg2;
 	
-	var jda2 = jump_diagon_alleya_check(obj2,obj1);
+	var jda2 = move_to_diagon_alleya_check(obj2,obj1);
 	if(jda2 != null) return jda2;
 	
 	if(((n+2==n2)||(n2+2==n)||(n2+1==n)||(n+1==n2))&&((m+2==m2)||(m2+2==m)||(m2+1==m)||(m+1==m2)))
@@ -781,7 +781,7 @@ function magnito_check(obj1, obj2)
 
 
 
-function jump_magnito_check(obj1, obj2)
+function move_to_magnito_check(obj1, obj2)
 {
 	var imgData1 = getImageDataFromObject(obj1);
 	var imgData2 = getImageDataFromObject(obj2);
@@ -817,7 +817,7 @@ function jump_magnito_check(obj1, obj2)
 			
 			//function check_vertical_cell_background(obj1, m, obj2, m2 ) //when first is bgcolor
 			
-			if( jump_check_vertical_cell_background(n, obj1, m, obj2, m2 ))
+			if( move_to_check_vertical_cell_background(n, obj1, m, obj2, m2 ))
 			{
 				
 				
@@ -841,7 +841,7 @@ function jump_magnito_check(obj1, obj2)
 			
 			
 			
-			if( jump_check_horizontal_cell_background(m, obj1, n, obj2, n2 ))
+			if( move_to_check_horizontal_cell_background(m, obj1, n, obj2, n2 ))
 			{
 				
 				
@@ -1078,7 +1078,7 @@ function diagon_alleya_check(obj1, obj2)
 
 
 
-function jump_diagon_alleya_check(obj1, obj2)
+function move_to_diagon_alleya_check(obj1, obj2)
 {
 	var imgData1 = getImageDataFromObject(obj1);
 	var imgData2 = getImageDataFromObject(obj2);

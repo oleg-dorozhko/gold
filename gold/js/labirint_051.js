@@ -1859,7 +1859,7 @@ function f_get_neighbours(x,y,callback)
 				// }
 				// while(found);
 				
-					// var grey_color = [255,255,255,255];
+					// var grey_color = getWhiteSpaceColor();
 					// do
 				// {
 					// var found=false;
@@ -2399,14 +2399,14 @@ function rem_whenUserClickedGalerka(e)
 	//put_pattern_to_buffer();
 	
 	var rb = document.querySelector('input[name="flags"]:checked').value;
-	if(rb == "jump" || rb == "pack") //только на поле
+	if(rb == "move_to" || rb == "pack") //только на поле
 	{
 		
 		{
 			var obj =  get_selected_object(e);
 			if(document.getElementById("qflag1").checked == true )
 				{
-					var result = jump_all_back( obj, get_allowed_jump_back(obj) );
+					var result = move_to_all_back( obj, get_allowed_move_to_back(obj) );
 					
 					
 						
@@ -2415,7 +2415,7 @@ function rem_whenUserClickedGalerka(e)
 				else
 				{
 					
-			var result = jump_back(obj, get_allowed_jump_back(obj));
+			var result = move_to_back(obj, get_allowed_move_to_back(obj));
 				}
 			if(result == -1)  randomize();
 			else sound();
@@ -4445,7 +4445,7 @@ function rem_whenUserLeftClickOnLeftCanvas(e)
 		
 		return;
 	}
-	else if(rb == "jump")
+	else if(rb == "move_to")
 	{
 		
 		
@@ -4458,7 +4458,7 @@ function rem_whenUserLeftClickOnLeftCanvas(e)
 			
 			if(document.getElementById("qflag1").checked == true )
 				{
-					var result = jump_all_back( global_last_selected_object, obj );
+					var result = move_to_all_back( global_last_selected_object, obj );
 					
 					
 						
@@ -4469,7 +4469,7 @@ function rem_whenUserLeftClickOnLeftCanvas(e)
 				
 					
 					
-					var result = jump_back( global_last_selected_object, obj );  //клонируем только в соседнюю пустую ячейку
+					var result = move_to_back( global_last_selected_object, obj );  //клонируем только в соседнюю пустую ячейку
 					
 					
 					
@@ -4493,7 +4493,7 @@ function rem_whenUserLeftClickOnLeftCanvas(e)
 					
 				if(document.getElementById("qflag1").checked == true )
 				{
-					var result = jump_all( obj );
+					var result = move_to_all( obj );
 					
 					if(result == 1) { sound(); }
 					else randomize();
@@ -4502,7 +4502,7 @@ function rem_whenUserLeftClickOnLeftCanvas(e)
 				}
 				else
 				{
-					var result = jump( obj );  //прыгаем только на галерку и если не пусты
+					var result = move_to( obj );  //прыгаем только на галерку и если не пусты
 							
 					if(result == 1) { sound(); }
 					else randomize();
@@ -5009,7 +5009,7 @@ function clone_all(obj1, obj2)
 				var gc = findGalerkaCanvas(clonedImageData);
 				if(gc==null) break;
 				obj1.frm=gc.id;
-				jump_back(obj1, obj22);
+				move_to_back(obj1, obj22);
 				****/
 				
 				/***
@@ -5619,7 +5619,7 @@ function pack_all(obj)
 	if(isAllPointsSame(imgData.data)==true) return -1;
 	var clonedImageData = cloneImageData(imgData);
 	
-	var result = jump_all(obj);
+	var result = move_to_all(obj);
 	
 	if(result == -1) return -1;
 	
@@ -5634,7 +5634,7 @@ function pack_all(obj)
 	//var obj2 = {};
 	//obj2.frm=gc_arr[gc_arr.length].id;
 		
-	//jump_back(obj,obj2);
+	//move_to_back(obj,obj2);
 	
 	return 1;
 	
@@ -5689,7 +5689,7 @@ function addPSamedInGalerka(imgData)
 	return color;
 }
 
-function jump_psamed(obj)
+function move_to_psamed(obj)
 {
 	//if(inExactPlaces(obj1)) return -1;
 		
@@ -5713,7 +5713,7 @@ function jump_psamed(obj)
 }
 
 
-function jump(obj,last_line)
+function move_to(obj,last_line)
 {
 	//if(inExactPlaces(obj)) return -1;
 	
@@ -5722,7 +5722,7 @@ function jump(obj,last_line)
 	
 	if(isAllPointsSame(imgData.data)==true) 
 	{
-		return jump_psamed(obj);
+		return move_to_psamed(obj);
 	}
 	
 	var canvas = document.getElementById("left_canvas");
@@ -5743,7 +5743,7 @@ function jump(obj,last_line)
 	return 1;	
 }
 
-function mjump(obj)
+function mmove_to(obj)
 {
 	
 	
@@ -5788,7 +5788,7 @@ function mjump(obj)
 	return 1;	
 }
 
-function jump_all(obj)
+function move_to_all(obj)
 {
 	
 
@@ -5813,7 +5813,7 @@ function jump_all(obj)
 				obj2.frm = obj.frm;
 				obj2.nm = [i,j,i/global_seed_size,j/global_seed_size];
 				
-				jump(obj2);
+				move_to(obj2);
 			}
 			  
 			return 1;  
@@ -5825,7 +5825,7 @@ function jump_all(obj)
 }
 
 
-function jump_all_back(obj1,obj2)
+function move_to_all_back(obj1,obj2)
 {
 	
 	//fill_global_arr_objects();
@@ -5863,7 +5863,7 @@ function jump_all_back(obj1,obj2)
 				var gc = findGalerkaCanvas(clonedImageData);
 				if(gc==null) break;
 				obj1.frm=gc.id;
-				jump_back(obj1, obj22);
+				move_to_back(obj1, obj22);
 			}
 			
 			return 1;
@@ -5903,7 +5903,7 @@ function inExactPlaces(obj1)
 }
 
 
-function jump_psamed_back(obj1, obj2)
+function move_to_psamed_back(obj1, obj2)
 {
 //	if(inExactPlaces(obj1)) return -1;
 //	if(inExactPlaces(obj2)) return -1;
@@ -5991,7 +5991,7 @@ function magic_not_allowed(obj1,obj2)
 	//return true;
 }
 
-function jump_back(obj1, obj2)
+function move_to_back(obj1, obj2)
 {
 		if(obj2 == null) return -1;
 	//if(inExactPlaces(obj1)) return -1;
@@ -6003,7 +6003,7 @@ function jump_back(obj1, obj2)
 	
 	if((isAllPointsSame(imgData1.data)==true))
 	{
-		if( isCellBackground(obj2.frm,obj2.nm[2],obj2.nm[3]) ) 	return jump_psamed_back(obj1, obj2);
+		if( isCellBackground(obj2.frm,obj2.nm[2],obj2.nm[3]) ) 	return move_to_psamed_back(obj1, obj2);
 		return -1;
 	}
 	
@@ -6027,7 +6027,7 @@ function jump_back(obj1, obj2)
 }
 
 
-function mjump_psamed_back(obj1, obj2)
+function mmove_to_psamed_back(obj1, obj2)
 {
 	
 	var imgData1 = getImageDataFromObject(obj1);
@@ -6048,7 +6048,7 @@ function mjump_psamed_back(obj1, obj2)
 	return 1;	
 }
 
-function mjump_back(obj1, obj2)
+function mmove_to_back(obj1, obj2)
 {
 	
 	var imgData1 = getImageDataFromObject(obj1);
@@ -6057,7 +6057,7 @@ function mjump_back(obj1, obj2)
 	
 	if((isAllPointsSame(imgData1.data)==true))
 	{
-		if( isCellBackground(obj2.frm,obj2.nm[2],obj2.nm[3]) ) 	return mjump_psamed_back(obj1, obj2);
+		if( isCellBackground(obj2.frm,obj2.nm[2],obj2.nm[3]) ) 	return mmove_to_psamed_back(obj1, obj2);
 		return -1;
 	}
 	
@@ -6390,13 +6390,13 @@ function executing(cmd)
 		var s = getRandomNM();
 		swap_seeds(f,s);
 	}
-	else if ( cmd == 1 )  //jump
+	else if ( cmd == 1 )  //move_to
 	{
 		var f = getRandomNM();	
 		var obj = {};
 		obj.nm = [f[0]*global_seed_size,f[1]*global_seed_size,f[0],f[1]];
 		obj.frm = "left_canvas";
-		mjump(obj,false);
+		mmove_to(obj,false);
 	}
 	else if (cmd == 2) //remove
 	{
@@ -6412,7 +6412,7 @@ function executing(cmd)
 		obj2.nm = [s[0]*global_seed_size,s[1]*global_seed_size,s[0],s[1]];
 		obj2.frm = "left_canvas";
 		
-		mjump_back(obj,obj2);
+		mmove_to_back(obj,obj2);
 	}
 	else
 	{
@@ -6457,7 +6457,7 @@ function all_down()
 			var obj = {};
 			obj.nm = [i*global_seed_size,j*global_seed_size,i,j];
 			obj.frm = "left_canvas";
-			mjump(obj,false);
+			mmove_to(obj,false);
 			//setTimeout( function() { }, 500);
 		}
 	} 
@@ -6469,7 +6469,7 @@ function all_down()
 			var obj = {};
 			obj.nm = [i*global_seed_size,j*global_seed_size,i,j];
 			obj.frm = "left_canvas";
-			mjump(obj,false);
+			mmove_to(obj,false);
 			//setTimeout( function() { }, 500);
 		}
 	} 
@@ -6753,7 +6753,7 @@ function get_allowed_move(obj)
 	else return null;
 }
 
-function get_allowed_jump_back(obj)
+function get_allowed_move_to_back(obj)
 {
 	var imgData0 = getImageDataFromObject(obj);
 	if(isImageDataCellPatterned(imgData0))
@@ -6966,11 +6966,11 @@ function user_move(obj1, obj2)
 		if(all_checked) 
 		{
 			all_checked=false;		
-			return jump_all_back(obj1, obj2);
+			return move_to_all_back(obj1, obj2);
 		}
 		
-		return jump_back(obj1, get_allowed_jump_back(obj1));
-		//return jump_back(obj1, obj2);
+		return move_to_back(obj1, get_allowed_move_to_back(obj1));
+		//return move_to_back(obj1, obj2);
 		
 	}
 	else if ( (obj1.frm.indexOf("left_canvas")!= -1 ) && (obj2.frm.indexOf("left_canvas")!= -1 ) )
@@ -6980,10 +6980,10 @@ function user_move(obj1, obj2)
 			if(all_checked)
 			{
 				all_checked=false;
-				return jump_all(obj1);
+				return move_to_all(obj1);
 			}
 			
-			return jump(obj1);
+			return move_to(obj1);
 		}
 		
 		if( isImageDataCellPatterned(imgData1) && isImageDataCellPatterned(imgData2) )

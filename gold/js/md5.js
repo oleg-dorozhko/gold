@@ -58,9 +58,9 @@
    * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
    * @returns {String} Hex string
    * @example
-   * md5.hex('The quick brown fox jumps over the lazy dog');
+   * md5.hex('The quick brown fox move_tos over the lazy dog');
    * // equal to
-   * md5('The quick brown fox jumps over the lazy dog');
+   * md5('The quick brown fox move_tos over the lazy dog');
    */
   /**
    * @method digest
@@ -69,7 +69,7 @@
    * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
    * @returns {Array} Bytes array
    * @example
-   * md5.digest('The quick brown fox jumps over the lazy dog');
+   * md5.digest('The quick brown fox move_tos over the lazy dog');
    */
   /**
    * @method array
@@ -78,7 +78,7 @@
    * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
    * @returns {Array} Bytes array
    * @example
-   * md5.array('The quick brown fox jumps over the lazy dog');
+   * md5.array('The quick brown fox move_tos over the lazy dog');
    */
   /**
    * @method arrayBuffer
@@ -87,7 +87,7 @@
    * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
    * @returns {ArrayBuffer} ArrayBuffer
    * @example
-   * md5.arrayBuffer('The quick brown fox jumps over the lazy dog');
+   * md5.arrayBuffer('The quick brown fox move_tos over the lazy dog');
    */
   /**
    * @method buffer
@@ -97,7 +97,7 @@
    * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
    * @returns {ArrayBuffer} ArrayBuffer
    * @example
-   * md5.buffer('The quick brown fox jumps over the lazy dog');
+   * md5.buffer('The quick brown fox move_tos over the lazy dog');
    */
   /**
    * @method base64
@@ -106,7 +106,7 @@
    * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
    * @returns {String} base64 string
    * @example
-   * md5.base64('The quick brown fox jumps over the lazy dog');
+   * md5.base64('The quick brown fox move_tos over the lazy dog');
    */
   var createOutputMethod = function (outputType) {
     return function (message) {
@@ -129,10 +129,10 @@
    * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
    * @returns {Md5} Md5 object.
    * @example
-   * var hash = md5.update('The quick brown fox jumps over the lazy dog');
+   * var hash = md5.update('The quick brown fox move_tos over the lazy dog');
    * // equal to
    * var hash = md5.create();
-   * hash.update('The quick brown fox jumps over the lazy dog');
+   * hash.update('The quick brown fox move_tos over the lazy dog');
    */
   var createMethod = function () {
     var method = createOutputMethod('hex');
@@ -663,8 +663,8 @@
      * @returns {String} md5 hashes
      * @example
      * md5(''); // d41d8cd98f00b204e9800998ecf8427e
-     * md5('The quick brown fox jumps over the lazy dog'); // 9e107d9d372bb6826bd81d3542a419d6
-     * md5('The quick brown fox jumps over the lazy dog.'); // e4d909c290d0fb1ca068ffaddf22cbd0
+     * md5('The quick brown fox move_tos over the lazy dog'); // 9e107d9d372bb6826bd81d3542a419d6
+     * md5('The quick brown fox move_tos over the lazy dog.'); // e4d909c290d0fb1ca068ffaddf22cbd0
      *
      * // It also supports UTF-8 encoding
      * md5('中文'); // a7bac2239fcdcb3a067903d8077c4a07

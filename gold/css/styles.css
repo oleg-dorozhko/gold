@@ -19,6 +19,17 @@ margin-top: 20px;
 width: 40%;
 }
 
+.takes_span
+{
+	padding: 8px 16px;
+	margin: 8px 16px;
+	font-family: Tahoma;
+	background-color: black;
+	border: solid orange 2px;
+	font-size: 2rem;
+	color: lightgrey;
+}
+
 .moves_span
 {
 	padding: 8px 16px;

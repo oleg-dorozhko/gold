@@ -1,6 +1,6 @@
 //var opbeat = require('opbeat').start()
 var glob_debug_flag=false;
-
+var global_stars_in_sky = 40;
 // var mod_rio = require('./lib/mod_rio');
 // var mod_up = require('./lib/mod_up');
 // var mod_mirror = require('./lib/mod_mirror');
@@ -2590,7 +2590,7 @@ function set_buffer_by_id(where_png_id,in_memory_id)
 
 function is_white(color2)
 {
-	var color=[255,255,255,255];
+	var color=getWhiteSpaceColor();
 	if(
 					(color2[0] == color[0]) &&
 					(color2[1] == color[1]) &&
@@ -2625,6 +2625,59 @@ function check_is_white(png)
 	return true;
 	
 }	
+
+
+function change_colors_to_razn_colors(im0) {
+	
+	var colors = getArrayOfAllColors(im0);
+	console.log("=============== IN CHANGE COLORS 2 RAZN COLORS =================");
+	console.log(colors);
+	var razn_colors = get_razn_colors_pro(colors);
+	console.log("=============== IN CHANGE COLORS 2 RAZN COLORS =================");
+	console.log(razn_colors);
+	
+	var w = im0.width;
+	var h = im0.height;
+	
+		
+	for (var y = 0; y < h; y++) {
+		
+
+				for (var x = 0; x < w; x++) {
+				
+					
+					var idx = (w * y + x) << 2;
+					
+					//var key = ""+im0.data[idx]+"_"+im0.data[idx+1]+"_"+im0.data[idx+2]+"_"+im0.data[idx+3];
+					
+					//if (obj[key]==undefined) { 
+					
+						
+						var col = [im0.data[idx], im0.data[idx+1],im0.data[idx+2],im0.data[idx+3]]; 
+					//}
+					
+					var ind = getIndexOfColor(colors, col);
+					im0.data[idx] = razn_colors[ind][0];
+					im0.data[idx+1] = razn_colors[ind][1];
+					im0.data[idx+2] = razn_colors[ind][2];
+					im0.data[idx+3] = razn_colors[ind][3];
+					
+					
+				}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	return im0;
+
+}
 	
 function  get_allowed_pattern_id(rnd)
 {
@@ -2653,6 +2706,8 @@ function  get_allowed_pattern_id(rnd)
 		//var rnd='number of pattern schema';
 		var png = generate_new_pattern(rnd); //new PNG({filterType: 4});
 		if(png == null) return null;
+
+		png = change_colors_to_razn_colors(png);
 		
 		obj.width = png.width;
 		obj.height = png.height;
@@ -4850,7 +4905,8 @@ function pixelsPro_redrawPixels_main(obj, x,y,pixelsPro_pg_main_image)
 			var index2 = newpng.width * (j+7)*10*nn + (i+7)*10*nn << 2;
 			
 			var color = [pixelsPro_pg_main_image.data[index+0],pixelsPro_pg_main_image.data[index+1],pixelsPro_pg_main_image.data[index+2],pixelsPro_pg_main_image.data[index+3]];
-			
+			if(is_white(color) ) fillRectangleStarSkyPro(newpng, (i+7)*10*nn, (j+7)*10*nn, 10*nn, 10*nn, newpng.width, color);
+			else 
 			fillRectanglePro(newpng, (i+7)*10*nn, (j+7)*10*nn, 10*nn, 10*nn, newpng.width, color);
 			
 			newpng.data[index2+0] = pixelsPro_pg_main_image.data[index+0];
@@ -4886,6 +4942,59 @@ function pixelsPro_redrawPixels_main(obj, x,y,pixelsPro_pg_main_image)
 	return newpng;
 	***/
 	
+}
+
+
+function fillRectangleRndNoisePro(imgData2, i0, j0, n, m, width, col)
+{
+	
+	
+	for(var j=j0;j<j0+m;j++)
+	{
+		for(var i=i0;i<i0+n;i++)
+		{
+			var idx2 = (width * j + i ) << 2;
+			imgData2.data[idx2] = getRandomInt(0,256);
+			imgData2.data[idx2+1] = getRandomInt(0,256);
+			imgData2.data[idx2+2] = getRandomInt(0,256);
+			imgData2.data[idx2+3] = col[3];
+			
+		}
+	}
+	
+	return imgData2;
+
+}
+
+function fillRectangleStarSkyPro(imgData2, i0, j0, n, m, width, col)
+{
+	
+	
+	for(var j=j0;j<j0+m;j++)
+	{
+		for(var i=i0;i<i0+n;i++)
+		{
+			var idx2 = (width * j + i ) << 2;
+			
+			var t = getRandomInt(0,global_stars_in_sky);
+			if(t==4) {
+				imgData2.data[idx2] = getRandomInt(0,256);
+				imgData2.data[idx2+1] = getRandomInt(0,256);
+				imgData2.data[idx2+2] = getRandomInt(0,256);
+				imgData2.data[idx2+3] = col[3];
+			}
+			else {
+			imgData2.data[idx2] = col[0];
+				imgData2.data[idx2+1] = col[1];
+				imgData2.data[idx2+2] = col[2];
+				imgData2.data[idx2+3] = col[3];
+			}
+			
+		}
+	}
+	
+	return imgData2;
+
 }
 
 

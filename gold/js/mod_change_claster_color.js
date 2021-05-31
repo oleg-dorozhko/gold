@@ -310,7 +310,7 @@ function filter_include(x,y)
 				
 				// setTimeout(function(){
 				
-				// post_bubabu(arr[1],[255,255,255,255]);
+				// post_bubabu(arr[1],getWhiteSpaceColor());
 				
 				// },1500);
 				

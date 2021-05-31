@@ -1,6 +1,6 @@
 var global_do_work=false;
 var global_cliked_points_array=[];
-var global_bgcolor=[255,255,255,255];
+var global_bgcolor=getWhiteSpaceColor();
 var global_counter=0;
 var MAX_CHARGE=10;
 function processing_click()
@@ -131,7 +131,7 @@ function doLeftClick(x,y,callback)
 							
 							context7.putImageData(imgData7,0,0);
 							global_dummy_fast_thread_border_cluster.push([x,y]);
-							post_bubabu(global_dummy_fast_thread_border_cluster,[255,255,255,255]); 
+							post_bubabu(global_dummy_fast_thread_border_cluster,getWhiteSpaceColor()); 
 
 							global_do_work=false;
 						
@@ -154,7 +154,7 @@ function click_on_white(x,y)
 	var f=false;
 	
 	{
-		if( rt_compareColors(bgcolor,[255,255,255,255],0)==true )
+		if( rt_compareColors(bgcolor,getWhiteSpaceColor(),0)==true )
 		{ f=true;}
 	}
 	return f;
@@ -179,7 +179,7 @@ function ctrlz(e)
 		
 		var imgData0 = context0.getImageData(0,0,canvas0.width,canvas0.height);
 		var _color= getColorArrayFromImageData(imgData0, x, y);
-		var bgcolor = [255,255,255,255];
+		var bgcolor = getWhiteSpaceColor();
 		
 		
 		if( (bgcolor[0]==_color[0]) && (bgcolor[1]==_color[1]) && (bgcolor[2]==_color[2]) && (bgcolor[3]==_color[3]) ) 

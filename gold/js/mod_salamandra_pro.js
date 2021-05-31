@@ -60,8 +60,8 @@ function zala_mander17()
 				
 				var arr = dummy_fast(pf[0],pf[1]);
 				if((arr[0].length==0)&&(arr[1].length==0)) arr[1].push(pf);
-				//post_bubabu(arr[0],[255,255,255,255]);
-				post_bubabu(arr[1],[255,255,255,255]);
+				//post_bubabu(arr[0],getWhiteSpaceColor());
+				post_bubabu(arr[1],getWhiteSpaceColor());
 				
 			
 			
@@ -301,7 +301,7 @@ function mod_salamander_pro_processing_avto_click(){
 		{
 			
 			riffle_charge(rc[0],rc[1],rc[2]);
-		//try_to_fly();
+		//avtomatik_move_to();
 		setTimeout(processing_click, 100);
 		}
 	 }	

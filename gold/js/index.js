@@ -2630,7 +2630,7 @@ function set_buffer_by_id(where_png_id,in_memory_id)
 
 function is_white(color2)
 {
-	var color=[255,255,255,255];
+	var color=getWhiteSpaceColor();
 	if(
 					(color2[0] == color[0]) &&
 					(color2[1] == color[1]) &&

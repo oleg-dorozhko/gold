@@ -1784,7 +1784,7 @@ function whenUserClickedGalerka(e)
 	//put_pattern_to_buffer();
 	
 	var rb = document.querySelector('input[name="flags"]:checked').value;
-	if(rb == "jump" || rb == "pack") //только на поле
+	if(rb == "move_to" || rb == "pack") //только на поле
 	{
 		
 		{
@@ -3655,7 +3655,7 @@ function whenUserLeftClickOnLeftCanvas(e)
 		
 		return;
 	}
-	else if(rb == "jump")
+	else if(rb == "move_to")
 	{
 		
 		
@@ -3667,7 +3667,7 @@ function whenUserLeftClickOnLeftCanvas(e)
 				
 				var obj =  get_selected_object(e);
 				
-				var result = jump_back( global_last_selected_object, obj );  //клонируем только в соседнюю пустую ячейку
+				var result = move_to_back( global_last_selected_object, obj );  //клонируем только в соседнюю пустую ячейку
 				
 				if(result == 1) { sound(); }
 				
@@ -3682,7 +3682,7 @@ function whenUserLeftClickOnLeftCanvas(e)
 			if(obj.frm.indexOf("galerka_")==-1)
 			{
 					
-				var result = jump( obj );  //прыгаем только на галерку и если не пусты
+				var result = move_to( obj );  //прыгаем только на галерку и если не пусты
 						
 				if(result == 1) { sound(); }
 					
@@ -4166,7 +4166,7 @@ function pack(obj1, obj2)
 	return 1;
 }
 
-function jump(obj)
+function move_to(obj)
 {
 	var imgData = getImageDataFromObject(obj);
 	if(isAllPointsSame(imgData.data)==true) return -1;
@@ -4186,7 +4186,7 @@ function jump(obj)
 	return 1;	
 }
 
-function jump_back(obj1, obj2)
+function move_to_back(obj1, obj2)
 {
 	
 	var imgData1 = getImageDataFromObject(obj1);

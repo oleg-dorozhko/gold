@@ -3022,14 +3022,14 @@ function rem_whenUserClickedGalerka(e)
 	//put_pattern_to_buffer();
 	
 	var rb = document.querySelector('input[name="flags"]:checked').value;
-	if(rb == "jump" || rb == "pack") //только на поле
+	if(rb == "move_to" || rb == "pack") //только на поле
 	{
 		
 		{
 			var obj =  get_selected_object(e);
 			if(document.getElementById("qflag1").checked == true )
 				{
-					var result = jump_all_back( obj, get_allowed_jump_back(obj) );
+					var result = move_to_all_back( obj, get_allowed_move_to_back(obj) );
 					
 					
 						
@@ -3038,7 +3038,7 @@ function rem_whenUserClickedGalerka(e)
 				else
 				{
 					
-			var result = jump_back(obj, get_allowed_jump_back(obj));
+			var result = move_to_back(obj, get_allowed_move_to_back(obj));
 				}
 			if(result == -1)  randomize();
 			else sound();
@@ -5103,7 +5103,7 @@ function rem_whenUserLeftClickOnLeftCanvas(e)
 		
 		return;
 	}
-	else if(rb == "jump")
+	else if(rb == "move_to")
 	{
 		
 		
@@ -5116,7 +5116,7 @@ function rem_whenUserLeftClickOnLeftCanvas(e)
 			
 			if(document.getElementById("qflag1").checked == true )
 				{
-					var result = jump_all_back( global_last_selected_object, obj );
+					var result = move_to_all_back( global_last_selected_object, obj );
 					
 					
 						
@@ -5127,7 +5127,7 @@ function rem_whenUserLeftClickOnLeftCanvas(e)
 				
 					
 					
-					var result = jump_back( global_last_selected_object, obj );  //клонируем только в соседнюю пустую ячейку
+					var result = move_to_back( global_last_selected_object, obj );  //клонируем только в соседнюю пустую ячейку
 					
 					
 					
@@ -5151,7 +5151,7 @@ function rem_whenUserLeftClickOnLeftCanvas(e)
 					
 				if(document.getElementById("qflag1").checked == true )
 				{
-					var result = jump_all( obj );
+					var result = move_to_all( obj );
 					
 					if(result == 1) { sound(); }
 					else randomize();
@@ -5160,7 +5160,7 @@ function rem_whenUserLeftClickOnLeftCanvas(e)
 				}
 				else
 				{
-					var result = jump( obj );  //прыгаем только на галерку и если не пусты
+					var result = move_to( obj );  //прыгаем только на галерку и если не пусты
 							
 					if(result == 1) { sound(); }
 					else randomize();
@@ -5680,7 +5680,7 @@ function clone_all(obj1, obj2)
 				var gc = findGalerkaCanvas(clonedImageData);
 				if(gc==null) break;
 				obj1.frm=gc.id;
-				jump_back(obj1, obj22);
+				move_to_back(obj1, obj22);
 				****/
 				
 				/***
@@ -6309,7 +6309,7 @@ function pack_all(obj)
 	if(isAllPointsSame(imgData.data)==true) return -1;
 	var clonedImageData = cloneImageData(imgData);
 	
-	var result = jump_all(obj);
+	var result = move_to_all(obj);
 	
 	if(result == -1) return -1;
 	
@@ -6324,7 +6324,7 @@ function pack_all(obj)
 	//var obj2 = {};
 	//obj2.frm=gc_arr[gc_arr.length].id;
 		
-	//jump_back(obj,obj2);
+	//move_to_back(obj,obj2);
 	
 	return 1;
 	
@@ -6379,7 +6379,7 @@ function addPSamedInGalerka(imgData)
 	return color;
 }
 
-function jump_psamed(obj)
+function move_to_psamed(obj)
 {
 	//if(inExactPlaces(obj1)) return -1;
 		
@@ -6434,7 +6434,7 @@ function jump_psamed(obj)
 }
 
 
-function jump(obj,last_line)
+function move_to(obj,last_line)
 {
 	//if(inExactPlaces(obj)) return -1;
 	
@@ -6443,7 +6443,7 @@ function jump(obj,last_line)
 	
 	if(isAllPointsSame(imgData.data)==true) 
 	{
-		return jump_psamed(obj);
+		return move_to_psamed(obj);
 	}
 	
 	var canvas = document.getElementById("left_canvas");
@@ -6486,7 +6486,7 @@ function jump(obj,last_line)
 	
 }
 
-function mjump(obj)
+function mmove_to(obj)
 {
 	
 	
@@ -6558,7 +6558,7 @@ var objColor = null;
 	return 1;	
 }
 
-function jump_all(obj)
+function move_to_all(obj)
 {
 	
 
@@ -6583,7 +6583,7 @@ function jump_all(obj)
 				obj2.frm = obj.frm;
 				obj2.nm = [i,j,i/global_seed_size,j/global_seed_size];
 				
-				jump(obj2);
+				move_to(obj2);
 			}
 			  
 			return 1;  
@@ -6595,7 +6595,7 @@ function jump_all(obj)
 }
 
 
-function jump_all_back(obj1,obj2)
+function move_to_all_back(obj1,obj2)
 {
 	
 	//fill_global_arr_objects();
@@ -6633,7 +6633,7 @@ function jump_all_back(obj1,obj2)
 				var gc = findGalerkaCanvas(clonedImageData);
 				if(gc==null) break;
 				obj1.frm=gc.id;
-				jump_back(obj1, obj22);
+				move_to_back(obj1, obj22);
 			}
 			
 			return 1;
@@ -6673,7 +6673,7 @@ function inExactPlaces(obj1)
 }
 
 
-function jump_psamed_back(obj1, obj2)
+function move_to_psamed_back(obj1, obj2)
 {
 //	if(inExactPlaces(obj1)) return -1;
 //	if(inExactPlaces(obj2)) return -1;
@@ -6777,7 +6777,7 @@ function magic_not_allowed(obj1,obj2)
 	//return true;
 }
 
-function jump_back(obj1, obj2)
+function move_to_back(obj1, obj2)
 {
 		if(obj2 == null) return null;
 	//if(inExactPlaces(obj1)) return -1;
@@ -6789,7 +6789,7 @@ function jump_back(obj1, obj2)
 	
 	if((isAllPointsSame(imgData1.data)==true))
 	{
-		if( isCellBackground(obj2.frm,obj2.nm[2],obj2.nm[3]) ) 	return jump_psamed_back(obj1, obj2);
+		if( isCellBackground(obj2.frm,obj2.nm[2],obj2.nm[3]) ) 	return move_to_psamed_back(obj1, obj2);
 		return null;
 	}
 	
@@ -6827,7 +6827,7 @@ function jump_back(obj1, obj2)
 }
 
 
-function mjump_psamed_back(obj1, obj2)
+function mmove_to_psamed_back(obj1, obj2)
 {
 	
 	var imgData1 = getImageDataFromObject(obj1);
@@ -6848,7 +6848,7 @@ function mjump_psamed_back(obj1, obj2)
 	return 1;	
 }
 
-function mjump_back(obj1, obj2)
+function mmove_to_back(obj1, obj2)
 {
 	
 	var imgData1 = getImageDataFromObject(obj1);
@@ -6857,7 +6857,7 @@ function mjump_back(obj1, obj2)
 	
 	if((isAllPointsSame(imgData1.data)==true))
 	{
-		if( isCellBackground(obj2.frm,obj2.nm[2],obj2.nm[3]) ) 	return mjump_psamed_back(obj1, obj2);
+		if( isCellBackground(obj2.frm,obj2.nm[2],obj2.nm[3]) ) 	return mmove_to_psamed_back(obj1, obj2);
 		return -1;
 	}
 	
@@ -7165,13 +7165,13 @@ function executing(cmd)
 		var s = getRandomNM();
 		swap_seeds(f,s);
 	}
-	else if ( cmd == 1 )  //jump
+	else if ( cmd == 1 )  //move_to
 	{
 		var f = getRandomNM();	
 		var obj = {};
 		obj.nm = [f[0]*global_seed_size,f[1]*global_seed_size,f[0],f[1]];
 		obj.frm = "left_canvas";
-		mjump(obj,false);
+		mmove_to(obj,false);
 	}
 	else if (cmd == 2) //remove
 	{
@@ -7187,7 +7187,7 @@ function executing(cmd)
 		obj2.nm = [s[0]*global_seed_size,s[1]*global_seed_size,s[0],s[1]];
 		obj2.frm = "left_canvas";
 		
-		mjump_back(obj,obj2);
+		mmove_to_back(obj,obj2);
 	}
 	else
 	{
@@ -7292,7 +7292,7 @@ function take_a_fifty_colored()
 		{
 			
 			
-			var result = jump_rnd_back(imgData);
+			var result = move_to_rnd_back(imgData);
 
 			if(result != null)
 			{
@@ -7334,7 +7334,7 @@ function take_a_fifty()
 		//function()
 		{
 			var el = document.getElementById("first_kard").childNodes[0];
-			var result  = jump_rnd_back(el.getContext("2d").getImageData(0,0,el.width,el.height));
+			var result  = move_to_rnd_back(el.getContext("2d").getImageData(0,0,el.width,el.height));
 			if(result!=null) 
 			{
 				remove_kard(el);
@@ -7699,7 +7699,7 @@ function all_down()
 			var obj = {};
 			obj.nm = [i*global_seed_size,j*global_seed_size,i,j];
 			obj.frm = "left_canvas";
-			mjump(obj,false);
+			mmove_to(obj,false);
 			//setTimeout( function() { }, 500);
 		}
 	} 
@@ -7711,7 +7711,7 @@ function all_down()
 			var obj = {};
 			obj.nm = [i*global_seed_size,j*global_seed_size,i,j];
 			obj.frm = "left_canvas";
-			mjump(obj,false);
+			mmove_to(obj,false);
 			//setTimeout( function() { }, 500);
 		}
 	} 
@@ -7731,7 +7731,7 @@ function all_down2()
 			var obj = {};
 			obj.nm = [i*global_seed_size,j*global_seed_size,i,j];
 			obj.frm = "left_canvas";
-			mjump(obj,false);
+			mmove_to(obj,false);
 			//setTimeout( function() { }, 500);
 		}
 	} 
@@ -7743,7 +7743,7 @@ function all_down2()
 			var obj = {};
 			obj.nm = [i*global_seed_size,j*global_seed_size,i,j];
 			obj.frm = "left_canvas";
-			mjump(obj,false);
+			mmove_to(obj,false);
 			//setTimeout( function() { }, 500);
 		}
 	} 
@@ -8082,7 +8082,7 @@ function get_allowed_move(obj)
 	else return null;
 }
 
-function get_allowed_jump_back(obj)
+function get_allowed_move_to_back(obj)
 {
 	var imgData0 = getImageDataFromObject(obj);
 	if(isImageDataCellPatterned(imgData0))
@@ -8273,7 +8273,7 @@ function isFreeze(imgData, n, m, imgData2, n2, m2 )  //фрегл ставитс
 var arr_gun = null;
 
 
-function jump_rnd_back2(obj1, obj2)
+function move_to_rnd_back2(obj1, obj2)
 {
 	var arr = null;
 	
@@ -8378,7 +8378,7 @@ function jump_rnd_back2(obj1, obj2)
 		
 }
 
-function jump_rnd_back(imgData)
+function move_to_rnd_back(imgData)
 {
 	var arr = null;
 	if(isImageDataAllPointsSame(imgData))
@@ -8507,7 +8507,7 @@ function whenUserClickedKard(e)
 			}
 		}
 		
-		var result = jump_rnd_back(e.target.getContext("2d").getImageData(0,0,e.target.width,e.target.height));
+		var result = move_to_rnd_back(e.target.getContext("2d").getImageData(0,0,e.target.width,e.target.height));
 		
 		//we need to shift up наверх всю колоду сдвинуть
 		
@@ -8668,7 +8668,7 @@ function user_move(obj1, obj2)
 	if(obj1 == null) return -1;
 	if(obj2 == null) return -1;
 	
-	//alert('todo://jump pattern and colored Only not exact places! krepostnoe pravo eto kogda jump bacn on own color');
+	//alert('todo://move_to pattern and colored Only not exact places! krepostnoe pravo eto kogda move_to bacn on own color');
 	
 //	if(document.getElementById("qflag1").checked == true ) all_checked=true;
 	
@@ -8686,7 +8686,7 @@ function user_move(obj1, obj2)
 		{
 			all_checked=false;
 			
-			return jump_all_back(obj1, obj2);
+			return move_to_all_back(obj1, obj2);
 		}
 		
 		if( isImageDataAllPointsSame(imgData1) )
@@ -8694,28 +8694,28 @@ function user_move(obj1, obj2)
 		//	var imgData3 = getImageDataFrom("center_canvas",n2,m2);
 		//	if(cmp(imgData1,imgData3)) 
 		//	{
-		//		if(glob_float_mode==true)  return jump_back(obj1, get_allowed_jump_back(obj1));
-				return jump_back(obj1, obj2);
+		//		if(glob_float_mode==true)  return move_to_back(obj1, get_allowed_move_to_back(obj1));
+				return move_to_back(obj1, obj2);
 		//	}
 		//	else
 		//	{
-		//		return jump_back(obj1, obj2);
+		//		return move_to_back(obj1, obj2);
 		//	}
 				
-			//if obj2 in center_canvas == imgData1 then float jump
-			//else exact jump
+			//if obj2 in center_canvas == imgData1 then float move_to
+			//else exact move_to
 		}
 		
 		//krepostnoe pravo
 		if( isImageDataCellPatterned(imgData1) ) //krepostnoe pravo
 		{
-			//if obj2 in right_canvas == imgData1 then float jump
-			//else exact jump
+			//if obj2 in right_canvas == imgData1 then float move_to
+			//else exact move_to
 		} //krepostnoe pravo
 		
-		if(glob_float_mode==true)  return jump_back(obj1, get_allowed_jump_back(obj1));
+		if(glob_float_mode==true)  return move_to_back(obj1, get_allowed_move_to_back(obj1));
 		
-		return jump_back(obj1, obj2);
+		return move_to_back(obj1, obj2);
 		
 	}
 	else if ( (obj1.frm.indexOf("left_canvas")!= -1 ) && (obj2.frm.indexOf("left_canvas")!= -1 ) )
@@ -8725,12 +8725,12 @@ function user_move(obj1, obj2)
 			if(all_checked)
 			{
 				all_checked=false;
-				return jump_all(obj1);
+				return move_to_all(obj1);
 			}
 			
-			//if(glob_float_mode==true) return jump(obj1, get_allowed_jump(obj1));
+			//if(glob_float_mode==true) return move_to(obj1, get_allowed_move_to(obj1));
 			
-			return jump(obj1);
+			return move_to(obj1);
 		}
 		
 		if( isImageDataCellPatterned(imgData1) && isImageDataCellPatterned(imgData2) )
@@ -9723,7 +9723,7 @@ function get_half_colored()
 				var imgDataK = el.getContext("2d").getImageData(0,0,el.width,el.height);
 				if(isImageDataAllPointsSame(imgDataK))
 				{
-					var result  = jump_rnd_back(imgDataK);
+					var result  = move_to_rnd_back(imgDataK);
 					if(result!=null) 
 					{
 						remove_kard(el);
@@ -9949,7 +9949,7 @@ function put_new_kard_on_left_canvas()
 	if(ind==-1) return;
 	var imgData = list[ind].getContext("2d").getImageData(0,0,list[ind].width, list[ind].height);
 	
-	var result = jump_rnd_back(imgData);
+	var result = move_to_rnd_back(imgData);
 	if(result != null) soundKosh;
 	
 	
@@ -10002,7 +10002,7 @@ function shoot(arr_gun4)
 		
 		var obj2 = arr_gun4[1];
 	
-		//alert('todo://jump pattern and colored Only not exact places! krepostnoe pravo eto kogda jump bacn on own color');
+		//alert('todo://move_to pattern and colored Only not exact places! krepostnoe pravo eto kogda move_to bacn on own color');
 		
 	//	if(document.getElementById("qflag1").checked == true ) all_checked=true;
 		
@@ -10017,7 +10017,7 @@ function shoot(arr_gun4)
 		if ( (obj1.frm.indexOf("kard_")!= -1 ) && (obj2.frm.indexOf("left_canvas")!= -1 ) )
 		{
 			
-			var result =  jump_rnd_back2(obj1, obj2);
+			var result =  move_to_rnd_back2(obj1, obj2);
 			if(result != null)
 			{
 				
@@ -10034,7 +10034,7 @@ function shoot(arr_gun4)
 		if ( (obj2.frm.indexOf("kard_")!= -1 ) && (obj1.frm.indexOf("left_canvas")!= -1 ) )
 		{
 							
-				var result = jump(obj1);
+				var result = move_to(obj1);
 				/***
 				if(result != null)
 				{
@@ -10061,7 +10061,7 @@ function shoot(arr_gun4)
 				{
 					
 					
-					jump_all(obj1);
+					move_to_all(obj1);
 					
 					
 					
@@ -10069,13 +10069,13 @@ function shoot(arr_gun4)
 				}
 				
 				
-				//if(glob_float_mode==true) return jump(obj1, get_allowed_jump(obj1));
+				//if(glob_float_mode==true) return move_to(obj1, get_allowed_move_to(obj1));
 				
 				//return 
 				
 				******/
 				
-				var result = jump(obj1);
+				var result = move_to(obj1);
 			
 				
 				return result;
@@ -10309,7 +10309,7 @@ function shoot_magik(arr_gun2)
 		if(obj2 == null) return -1;
 	
 	
-		//alert('todo://jump pattern and colored Only not exact places! krepostnoe pravo eto kogda jump bacn on own color');
+		//alert('todo://move_to pattern and colored Only not exact places! krepostnoe pravo eto kogda move_to bacn on own color');
 		
 	//	if(document.getElementById("qflag1").checked == true ) all_checked=true;
 		
@@ -10331,7 +10331,7 @@ function shoot_magik(arr_gun2)
 				{
 					
 					
-					result = jump_all(obj1);
+					result = move_to_all(obj1);
 					
 					arr_gun2_null(result);
 					
@@ -10340,7 +10340,7 @@ function shoot_magik(arr_gun2)
 				
 				
 				
-				result = jump(obj1);
+				result = move_to(obj1);
 				
 				arr_gun2_null(result);
 				

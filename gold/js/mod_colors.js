@@ -141,6 +141,39 @@ function getArrayOfAllColors(im0)
 			return colors;
 }
 
+
+function get_razn_colors_pro(colors)
+{
+	razn_colors = null;
+	razn_colors = [];
+	
+	var nx=1;
+	if(colors.length<3) nx = 1;
+	else if(colors.length<6) nx = 2;
+	else if(colors.length<9) nx = 3;
+	else if(colors.length<12) nx = 4;
+	else if(colors.length<15) nx = 5;
+	
+	var nn = (250/(nx*2)|0);
+	
+	
+	for(var r=10;r<250;r+=nn)
+	{ 
+		for(var g=10;g<250;g+=nn)
+		{ 
+			for(var b=10;b<250;b+=nn)
+			{ 
+				razn_colors.push([r,g,b,255]);
+			}
+		}
+	
+	}
+	
+	shuffle(razn_colors);	
+	
+	return razn_colors;
+}
+
 function get_razn_colors(colors)
 {
 	razn_colors = null;

@@ -83,7 +83,7 @@ function dummy_fast_thread ( callback )
 			}
 			
 			global_dummy_fast_thread_arr2_all.splice(M,1);
-			global_dummy_fast_thread_imgData=fillRectangleFast(global_dummy_fast_thread_imgData,x,y,1,1,[255,255,255,255]);
+			global_dummy_fast_thread_imgData=fillRectangleFast(global_dummy_fast_thread_imgData,x,y,1,1,getWhiteSpaceColor());
 			//global_dummy_fast_thread_imgData
 			
 			if(global_dummy_fast_thread_arr2_all.length==0) {callback();return;}
