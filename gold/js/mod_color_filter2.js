@@ -5517,6 +5517,38 @@ function is_white(color2)
 
 }
 
+function copy_to_pixels2() {
+copyFromCanvasToCanvas("pixels", "pixels2");
+
+}
+
+function compare_and_leave_figure() {
+
+	var canvas0 = document.getElementById("pixels");
+	var context0 = canvas0.getContext("2d");
+	var im0=context0.getImageData(0,0,canvas0.width,canvas0.height);
+	
+	var canvas2 = document.getElementById("pixels2");
+	var context2 = canvas2.getContext("2d");
+	var im2=context2.getImageData(0,0,canvas2.width,canvas2.height);
+	var dy = 20;
+	var dx = 20;
+	for(var j=0;j<canvas0.height;j+=dy) {
+		for(var i=0;i<canvas0.width;i+=dx) {
+			var ind = im0.width * j + i << 2;	
+			color0 = getColorArrayFromImageData(im0, i, j);
+			color2 =  getColorArrayFromImageData(im2, i, j);
+			if(compareColors(color0,color2)==false) {
+				im2 = fillRectangleFast(im2,i,j,20,20,color2);
+			} else {
+			im2 = fillRectangleFast(im2,i,j,20,20,getWhiteSpaceColor());
+			}
+		}
+	}
+	context2.putImageData(im2,0,0);
+	
+}
+
 function filtering_tiles()
 {
 	
@@ -6354,8 +6386,9 @@ function isExistAnyNotRemovedClusters()
 					if(ch=='m') { show_hide_map(); }
 					else if(ch=='s') {	
 					//save_for_gif();
+					show_hide_picture_for_copy_paste();
 					}
-					else if (ch=='r') { rocket_jump(); }
+					else if (ch=='r') { show_hide_rules(); }
 					else if(ch=='c') {	alert([glob_x_left_top,glob_y_left_top]); }
 					//else if(ch=='t') {  create_new_stone(); }
 					else if(ch=='n') { if( prompt("Are you sure for new game? (y/n)","y")=="y" ) clean(); }
@@ -6585,6 +6618,16 @@ function show_make_gif_div()
 	var f=document.getElementById("gif_block_div_id").hidden;
 	if(f==true) document.getElementById("gif_block_div_id").hidden=false;
 }
+function show_hide_rules() {
+    var f=document.getElementById("item_rules").hidden;
+	if(f==true) document.getElementById("item_rules").hidden=false;
+	else document.getElementById("item_rules").hidden=true;
+}
+function show_hide_picture_for_copy_paste() {
+    var f=document.getElementById("item0").hidden;
+	if(f==true) document.getElementById("item0").hidden=false;
+	else document.getElementById("item0").hidden=true;
+}
 
 function show_hide_map()
 {
@@ -6595,7 +6638,7 @@ function show_hide_map()
 	// copyFromCanvasToCanvas("canvas0","canvas20");
 	// plus("canvas20");
 	// plus("canvas20");
-	 pp()
+    pp()
 	set_hero()
 	var canvas = document.getElementById("canvas20");
 	if(canvas.hidden==false)
@@ -7123,7 +7166,10 @@ function move_to() {
 }
 
 function move_to_new_coordinates() {
-f_doLeftClick(glob_x_left_top,glob_y_left_top,function() {
+	
+	sound();
+	
+	f_doLeftClick(glob_x_left_top,glob_y_left_top,function() {
 													
 												
 												
@@ -7259,7 +7305,7 @@ function avtomatik_move_to(){
 
 
 
-var canvas2 = document.getElementById("canvas0");
+    var canvas2 = document.getElementById("canvas0");
 	var context2 = canvas2.getContext("2d");
 	var imgData2 = context2.getImageData(0,0,canvas2.width,canvas2.height);
 	var color0 =  context2.getImageData(glob_x_left_top,glob_y_left_top,1,1).data;
@@ -7338,6 +7384,7 @@ var canvas2 = document.getElementById("canvas0");
 
 			var ind = get_min_near_point(arr2,[glob_x_left_top,glob_y_left_top]);
 			move_to_new_coordinates();
+			
 			glob_x_left_top=arr2[ind][0];
 			glob_y_left_top=arr2[ind][1];
 
@@ -7363,7 +7410,19 @@ var canvas2 = document.getElementById("canvas0");
 		var arrN = getSameColorNeighbors0( imgData2, getWhiteSpaceColor(), glob_x_left_top,glob_y_left_top, dx, dy );
 		//if(arrN.length == 8) { //worker of year
 		if(arrN[0].length !=  get_max_color_cell( glob_x_left_top,glob_y_left_top)) {
-			return;
+			
+			var arrN2 = getSameColorNeighbors0( imgData2,color0, glob_x_left_top,glob_y_left_top, dx, dy );
+			if(arrN2[0].length > 0)
+			{
+				return;
+			}
+				for(var i=0;i<arrN2[1].length;i++) {
+					if(is_gold(arrN2[1][i][2])) return;
+				}
+				
+			
+			
+			
 		} 
 	
 

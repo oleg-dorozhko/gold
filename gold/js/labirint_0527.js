@@ -4925,6 +4925,7 @@ function f_whenRightClick_part2(x,y){
 								)
 								{
 									takes_counter_incr();
+									copy_to_pixels2();
 									call_non_salamandra(f_glob_x_left_top,f_glob_y_left_top);
 									return;
 								}
@@ -4938,6 +4939,18 @@ function f_whenRightClick_part2(x,y){
 										if(arr.length==8)
 										{
 											f_take_gold(f_glob_x_left_top,f_glob_y_left_top);
+											
+											/////////////////////////////////////////////////////////
+											
+											
+											
+											//////////////////////////////////////////////////////////////
+											
+											
+											
+											
+											
+											
 											return;
 										}
 										return;
@@ -5125,7 +5138,8 @@ function f_whenRightClick_part2(x,y){
 					
 					takes_counter_incr();
 					
-					call_non_salamandra(f_glob_x_left_top,f_glob_y_left_top);
+					copy_to_pixels2();
+						call_non_salamandra(f_glob_x_left_top,f_glob_y_left_top);
 					
 					////////////////////////////
 						

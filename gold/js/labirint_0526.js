@@ -2329,7 +2329,9 @@ function findAllCellByImgData( imgData )
 																//avtomatik_move_to();	
 																	
 																	 f_samson();
-																	
+																		compare_and_leave_figure();
+					
+																
 																	
 																	// refresh_map();
 																	
@@ -2382,7 +2384,22 @@ function findAllCellByImgData( imgData )
 	
 function f_take_gold(x,y)
 {
-	set_pixel("canvas0",x,y,getWhiteSpaceColor());
+	
+	
+	var canvas = document.getElementById("canvas0");
+	var ctx = canvas.getContext("2d");
+	var im=ctx.getImageData(0,0,canvas.width,canvas.height);
+	var color =  getColorArrayFromImageData(im, glob_x_left_top, glob_y_left_top);
+											
+											if(all_white_arround_pro(ctx, glob_x_left_top, glob_y_left_top)) {
+											
+												set_pixel("canvas0",x, y, color );
+											}
+											else set_pixel("canvas0",x,y,getWhiteSpaceColor());
+	
+	
+	
+	
 	f_send_to_server_changed_canvas(()=>{
 							
 		f_samson(); //
